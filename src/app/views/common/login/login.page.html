@@ -1,5 +1,5 @@
 <ion-content>
-  <div class="container-fluid">
+  <div class="container-fluid" *ngIf="connected">
     <div class="text-header">Hello, welcome back 👋</div>
     <div class="text-sub-header">
       Happy to see you again, please login here.
@@ -26,7 +26,9 @@
               class="ion-padding"
               *ngIf="this.login.controls?.username.errors?.required"
             >
-              <ion-text color="danger">Désolé mais ce champs est obligatoire.</ion-text>
+              <ion-text color="danger"
+                >Désolé mais ce champs est obligatoire.</ion-text
+              >
             </div>
             <div
               class="ion-padding"
@@ -61,24 +63,26 @@
             formControlName="password"
           ></ion-input>
           <span
-          *ngIf="this.login.controls?.password.touched && this.login.controls?.password.invalid"
-        >
-          <div
-            class="ion-padding"
-            *ngIf="this.login.controls?.password.errors?.required"
+            *ngIf="this.login.controls?.password.touched && this.login.controls?.password.invalid"
           >
-            <ion-text color="danger">Désolé mais ce champs est obligatoire.</ion-text>
-          </div>
-          <div
-            class="ion-padding"
-            color="danger"
-            *ngIf="this.login.controls?.password.errors?.maxlength"
-          >
-            <ion-text color="danger"
-              >Renseignez au plus 20 caractères.</ion-text
+            <div
+              class="ion-padding"
+              *ngIf="this.login.controls?.password.errors?.required"
             >
-          </div>
-        </span>
+              <ion-text color="danger"
+                >Désolé mais ce champs est obligatoire.</ion-text
+              >
+            </div>
+            <div
+              class="ion-padding"
+              color="danger"
+              *ngIf="this.login.controls?.password.errors?.maxlength"
+            >
+              <ion-text color="danger"
+                >Renseignez au plus 20 caractères.</ion-text
+              >
+            </div>
+          </span>
         </div>
 
         <div>
@@ -99,6 +103,67 @@
         <div class="footer-text">
           You don't have an account ?
           <span color="primary" routerLink="/register"> Register</span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="container-fluid" *ngIf="!connected">
+    <div class="text-header">
+      <ion-skeleton-text
+        [animated]="true"
+        style="width: 70%; height: 28px; margin-left: 15%;"
+      ></ion-skeleton-text>
+    </div>
+    <div class="text-sub-header">
+      <ion-skeleton-text
+        [animated]="true"
+        style="width: 85%; margin-left: 7.5%; margin-top: 10px;"
+      ></ion-skeleton-text>
+    </div>
+
+    <div class="form-login">
+      <form [formGroup]="login" (ngSubmit)="submitForm()" novalidate>
+        <div class="form-group">
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 100%; height: 50px"
+          ></ion-skeleton-text>
+        </div>
+        <div class="form-group">
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 100%; height: 50px"
+          ></ion-skeleton-text>
+        </div>
+
+        <div style="display: flex">
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 5%; height: 18px"
+          ></ion-skeleton-text>
+
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 35%; height: 18px; margin-left: 4%"
+          ></ion-skeleton-text>
+
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 40%; height: 18px; margin-left: 15%"
+          ></ion-skeleton-text>
+        </div>
+
+        <ion-skeleton-text
+          [animated]="true"
+          style="width: 100%; height: 50px; margin-top: 2.1rem"
+        ></ion-skeleton-text>
+
+        <div class="footer-text">
+          <ion-skeleton-text
+          [animated]="true"
+          style="width: 80%; margin-top: 1rem; margin-left: 10%;"
+        ></ion-skeleton-text>
         </div>
       </form>
     </div>
