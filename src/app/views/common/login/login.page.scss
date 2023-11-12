@@ -1,0 +1,61 @@
+.container-fluid{
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 5%;
+
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 45%;
+  transform: translateY(-50%);
+
+  .text-header{
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 1.4rem;
+    padding: 0;
+    text-align: center;
+  }
+
+  .text-sub-header{
+    color: var(--ion-color-medium);
+    margin-top: .2rem;
+    font-size: .85rem;
+    text-align: center;
+  }
+
+  .form-login{
+    margin-top: 50px;
+
+    .form-group{
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .ending{
+      float: right;
+    }
+
+    ion-button{
+      margin-top: 2rem;
+      height: 2.5rem;
+      text-transform: capitalize;
+      font-weight: 400;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-text{
+      margin-top: 1rem;
+      text-align: center !important;
+      color: var(--ion-color-medium);
+
+      span{
+        font-weight: 600;
+        color: #2d81ff;
+      }
+    }
+  }
+}
+
