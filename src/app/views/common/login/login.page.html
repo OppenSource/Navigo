@@ -6,7 +6,7 @@
     </div>
 
     <div class="form-login">
-      <form #form="ngForm">
+      <form [formGroup]="login" (ngSubmit)="submitForm()" novalidate>
         <div class="form-group">
           <ion-input
             label="Username"
@@ -17,8 +17,36 @@
             [clearInput]="true"
             autocomplete="off"
             autocorrect="on"
-            [(ngModel)]="account.username"
+            formControlName="username"
           ></ion-input>
+          <span
+            *ngIf="this.login.controls?.username.touched && this.login.controls?.username.invalid"
+          >
+            <div
+              class="ion-padding"
+              *ngIf="this.login.controls?.username.errors?.required"
+            >
+              <ion-text color="danger">Désolé mais ce champs est obligatoire.</ion-text>
+            </div>
+            <div
+              class="ion-padding"
+              color="danger"
+              *ngIf="this.login.controls?.username.errors?.minlength"
+            >
+              <ion-text color="danger"
+                >Renseignez au moins 06 caractères.</ion-text
+              >
+            </div>
+            <div
+              class="ion-padding"
+              color="danger"
+              *ngIf="this.login.controls?.username.errors?.maxlength"
+            >
+              <ion-text color="danger"
+                >Renseignez au plus 20 caractères.</ion-text
+              >
+            </div>
+          </span>
         </div>
         <div class="form-group">
           <ion-input
@@ -30,13 +58,38 @@
             [clearInput]="true"
             autocomplete="off"
             autocorrect="on"
-            [(ngModel)]="account.password"
+            formControlName="password"
           ></ion-input>
+          <span
+          *ngIf="this.login.controls?.password.touched && this.login.controls?.password.invalid"
+        >
+          <div
+            class="ion-padding"
+            *ngIf="this.login.controls?.password.errors?.required"
+          >
+            <ion-text color="danger">Désolé mais ce champs est obligatoire.</ion-text>
+          </div>
+          <div
+            class="ion-padding"
+            color="danger"
+            *ngIf="this.login.controls?.password.errors?.maxlength"
+          >
+            <ion-text color="danger"
+              >Renseignez au plus 20 caractères.</ion-text
+            >
+          </div>
+        </span>
         </div>
 
         <div>
           <ion-checkbox labelPlacement="end">Remember Me</ion-checkbox>
-          <span color="danger" class="ending" [routerLink]="['/forgot-password']"> Forgot Password ? </span>
+          <span
+            color="danger"
+            class="ending"
+            [routerLink]="['/forgot-password']"
+          >
+            Forgot Password ?
+          </span>
         </div>
 
         <ion-button expand="block" type="submit">
