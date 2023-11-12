@@ -51,8 +51,8 @@ export class RegisterPage implements OnInit {
         ],
       ],
       fullname: ['', [Validators.required, Validators.minLength(5)]],
-      password: ['', [Validators.required, Validators.maxLength(20)]],
-      confirmPassword: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(5)]],
       account: ['', [Validators.required]],
     });
   }
