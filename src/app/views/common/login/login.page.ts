@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController, ToastController } from '@ionic/angular';
 import { Network } from '@capacitor/network';
 import { PluginListenerHandle } from '@capacitor/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Device } from '@capacitor/device';
 
 @Component({
   selector: 'app-login',
@@ -18,12 +20,17 @@ export class LoginPage implements OnInit {
     password: '',
   };
   connected: any;
+  code: any;
 
   constructor(
     public formBuilder: FormBuilder,
     private toastController: ToastController,
-    public navCtrl: NavController
-  ) {}
+    public navCtrl: NavController,
+    translate: TranslateService
+  ) {
+    translate.setDefaultLang(this.code);
+    translate.use(this.code);
+  }
 
   ngOnInit() {
     this.login = this.formBuilder.group({
@@ -38,6 +45,14 @@ export class LoginPage implements OnInit {
       password: ['', [Validators.required, Validators.maxLength(20)]],
     });
     this.initializeApp();
+
+    this.getCodeLanguage();
+  }
+
+  async getCodeLanguage() {
+    const info = await Device.getLanguageCode();
+    this.code = info.value;
+    console.log(this.code);
   }
 
   get errorControl() {
@@ -81,8 +96,6 @@ export class LoginPage implements OnInit {
       return console.log('');
     }
   };
-
-
 
   async initializeApp() {
     this.networkListener = Network.addListener(

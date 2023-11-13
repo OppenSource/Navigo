@@ -1,5 +1,5 @@
 <ion-content>
-  <div class="container-fluid" *ngIf="connected">
+  <div class="container-fluid" *ngIf="!connected">
     <div class="text-header">Hello, welcome back 👋</div>
     <div class="text-sub-header">
       Happy to see you again, please login here.
@@ -108,7 +108,7 @@
     </div>
   </div>
 
-  <div class="container-fluid" *ngIf="!connected">
+  <div class="container-fluid" *ngIf="connected">
     <div class="text-header">
       <ion-skeleton-text
         [animated]="true"
