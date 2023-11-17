@@ -1,0 +1,53 @@
+
+.continer-fluid{
+  padding: 3%;
+
+  ion-item{
+    border-radius: 1rem;
+
+    .search{
+      margin-right: 5px;
+      font-size: 1.8rem;
+    }
+
+    .options{
+      font-size: 1.8rem;
+    }
+  }
+
+  .continer-sub{
+    display: flex;
+  }
+}
+
+span{
+  swiper-slide{
+    ion-card{
+      padding: 11%;
+      --border: none;
+      border-radius: 8px;
+      width: 90%;
+      --background-color: var(--ion-color-medium-tin);
+      color: var(--ion-color-medium);
+      text-align: center !important;
+      font-weight: 500;
+    }
+  }
+}
+
+.card{
+  border-radius: .5rem;
+
+  img{
+    height: 80px;
+    width: 80px;
+    border-radius: .5rem;
+  }
+
+  .name{
+    padding: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+
+  }
+}
