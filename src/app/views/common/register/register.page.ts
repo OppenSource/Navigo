@@ -9,6 +9,7 @@ import { NavController, ToastController } from '@ionic/angular';
 })
 export class RegisterPage implements OnInit {
   register: FormGroup | any;
+  isTrue: any = false;
   account: any = {
     email: '',
     phone: '',
@@ -51,10 +52,20 @@ export class RegisterPage implements OnInit {
         ],
       ],
       fullname: ['', [Validators.required, Validators.minLength(5)]],
-      password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(20),
+        ],
+      ],
       confirmPassword: ['', [Validators.required, Validators.minLength(5)]],
       account: ['', [Validators.required]],
     });
+    if (this.register.value.account === 'student') {
+      this.isTrue = true;
+    }
   }
 
   get errorControl() {
@@ -104,25 +115,16 @@ export class RegisterPage implements OnInit {
 
   submitForm = () => {
     if (this.register.valid) {
-      let result = (this.account.email = this.register.value.email);
-      if (
-        this.passwordMatchValidator(
-          this.register.value.password,
-          this.register.value.confirmPassword
-        )
-      ) {
-        this.account.phone = this.register.value.phone;
-        this.account.fullname = this.register.value.fullname;
-        this.account.username = this.register.value.username;
-        this.account.password = this.register.value.password;
-        this.account.account = this.register.value.account;
-        setTimeout(() => {
-          this.successRegistration();
-          this.navCtrl.navigateForward('login');
-        }, 1000);
-      } else {
-        this.passwordToast();
-      }
+      this.account.phone = this.register.value.phone;
+      this.account.fullname = this.register.value.fullname;
+      this.account.username = this.register.value.username;
+      this.account.password = this.register.value.password;
+      this.account.account = this.register.value.account;
+      setTimeout(() => {
+        this.successRegistration();
+        this.navCtrl.navigateForward('login');
+      }, 1000);
+      
       console.log(this.account);
       return false;
     } else {

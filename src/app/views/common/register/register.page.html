@@ -47,7 +47,23 @@
             formControlName="fullname"
           ></ion-input>
         </div>
+
         <div class="form-group">
+          <ion-select
+            label="User Profil"
+            label-placement="floating"
+            fill="outline"
+            multiple="false"
+            placeholder="ex : Student"
+            formControlName="account"
+          >
+            <ion-select-option value="student">Student</ion-select-option>
+            <ion-select-option value="driver">Driver</ion-select-option>
+            <ion-select-option value="admin">Administrator</ion-select-option>
+          </ion-select>
+        </div>
+
+        <div class="form-group" *ngIf="isTrue">
           <ion-input
             label="Username"
             type="text"
@@ -60,7 +76,7 @@
             formControlName="username"
           ></ion-input>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <ion-input
             label="Password"
             type="password"
@@ -85,22 +101,7 @@
             autocorrect="on"
             formControlName="confirmPassword"
           ></ion-input>
-        </div>
-
-        <div class="form-group">
-          <ion-select
-            label="User Profil"
-            label-placement="floating"
-            fill="outline"
-            multiple="false"
-            placeholder="ex : Student"
-            formControlName="account"
-          >
-            <ion-select-option value="student">Student</ion-select-option>
-            <ion-select-option value="driver">Driver</ion-select-option>
-            <ion-select-option value="admin">Administrator</ion-select-option>
-          </ion-select>
-        </div>
+        </div> -->
 
         <ion-button expand="block" type="submit"
           >Register <ion-icon name="log-in-outline"></ion-icon

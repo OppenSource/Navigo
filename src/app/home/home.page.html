@@ -1,13 +1,97 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-grid fixed>
+      <ion-row>
+        <div class="img-header">
+          <img src="assets/avatars/1.png" />
+        </div>
+        <div class="img-text-header">
+          <p>
+            <span class="salutation">Welcome back, </span>
+          </p>
+          <span class="journee"> Brice Nanyang </span>
+        </div>
+        <div class="grid">
+          <ion-icon name="notifications-outline"></ion-icon>
+        </div>
+      </ion-row>
 
+      <ion-row class="row-search">
+        <ion-col size="10">
+          <ion-item class="item-search">
+            <ion-icon name="search-outline"></ion-icon>
+            <ion-input type="text" placeholder="Awesome Input"></ion-input>
+          </ion-item>
+        </ion-col>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+        <ion-col size="2">
+          <div class="grid1">
+            <ion-icon name="options-outline"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
 
-  <div id="container">
-    <strong>Welcome to ZoomTech </strong>
+<ion-content>
+  <div class="container-fluid">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card>
+            <ion-card-content>
+              <img src="assets/bg/bus-school.png" alt="" srcset="" />
+            </ion-card-content>
+            <ion-card-footer> School bus </ion-card-footer>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-card>
+            <ion-card-content>
+              <img src="assets/bg/students.png" alt="" srcset="" />
+            </ion-card-content>
+            <ion-card-footer> students </ion-card-footer>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-card>
+            <ion-card-content>
+              <img src="assets/bg/user-experience.png" alt="" srcset="" />
+            </ion-card-content>
+            <ion-card-footer> journeys </ion-card-footer>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-card>
+            <ion-card-content>
+            <img src="assets/bg/seatbelt.png" alt="" srcset="" />
+            </ion-card-content>
+            <ion-card-footer> drivers </ion-card-footer>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-card>
+            <ion-card-content>
+              <img src="assets/bg/administrator.png" alt="" srcset="" />
+            </ion-card-content>
+            <ion-card-footer> administrators </ion-card-footer>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-card>
+            <ion-card-content>
+              <img src="assets/bg/mobile-app.png" alt="" srcset="" />
+            </ion-card-content>
+            <ion-card-footer> settings </ion-card-footer>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>

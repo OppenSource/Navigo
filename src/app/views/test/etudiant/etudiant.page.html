@@ -1,0 +1,295 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-grid fixed>
+      <ion-row>
+        <div class="img-header">
+          <img src="assets/avatars/1.png" />
+        </div>
+        <div class="img-text-header">
+          <p>
+            <span class="salutation">Hello, </span>
+            <span class="username">Brice Nanyang</span>
+          </p>
+          <span class="journee">
+            Thursday 25 <sup>th</sup> , January 2023
+          </span>
+        </div>
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-row>
+    </ion-grid>
+    <ion-segment [(ngModel)]="selected" mode="ios">
+      <ion-segment-button value="nouveau">
+        <ion-label>Nouvel Etudiant</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="liste">
+        <ion-label>Liste des Etudiants</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="selected === 'nouveau'">
+    <div class="container-fluid">
+      <p style="text-align: center !important">
+        Renseignez les informations puis continuez
+      </p>
+
+      <form [formGroup]="register" (ngSubmit)="submitForm()">
+        <ion-input
+          label="Noms Complet"
+          label-placement="floating"
+          fill="outline"
+          placeholder="ex : Nanyang Brice"
+          type="text"
+          [clearInput]="true"
+          formControlName="fullname"
+        >
+        </ion-input>
+        <span
+          *ngIf="this.register.controls?.fullname.touched && this.register.controls?.fullname.invalid"
+        >
+          <div
+            class="ion-padding"
+            *ngIf="this.register.controls?.fullname.errors?.required"
+          >
+            <ion-text color="danger"
+              >Désolé mais ce champs est obligatoire.</ion-text
+            >
+          </div>
+          <div
+            class="ion-padding"
+            color="danger"
+            *ngIf="this.register.controls?.fullname.errors?.minlength"
+          >
+            <ion-text color="danger"
+              >Renseignez au moins 05 caractères.</ion-text
+            >
+          </div>
+        </span>
+
+        <ion-input
+          label="Adresse Email"
+          label-placement="floating"
+          fill="outline"
+          type="email"
+          placeholder="brice......@instutsaintjean.org"
+          [clearInput]="true"
+          formControlName="email"
+        >
+        </ion-input>
+        <span
+          *ngIf="this.register.controls?.email.touched && this.register.controls?.email.invalid"
+        >
+          <div
+            class="ion-padding"
+            *ngIf="this.register.controls?.email.errors?.required"
+          >
+            <ion-text color="danger"
+              >Désolé mais ce champs est obligatoire.</ion-text
+            >
+          </div>
+          <div
+            class="ion-padding"
+            color="danger"
+            *ngIf="this.register.controls?.email.errors?.pattern"
+          >
+            <ion-text color="danger"
+              >Cette adresse n'est pas de l'ISJ.</ion-text
+            >
+          </div>
+        </span>
+
+        <ion-input
+          label="Téléphone"
+          maxlength="255"
+          label-placement="floating"
+          fill="outline"
+          type="tel"
+          maxlength="9"
+          placeholder="657-807-309"
+          value="6"
+          [clearInput]="true"
+          formControlName="phone"
+        >
+        </ion-input>
+        <span
+          *ngIf="this.register.controls?.phone.touched && this.register.controls?.phone.invalid"
+        >
+          <div
+            class="ion-padding"
+            *ngIf="this.register.controls?.phone.errors?.required"
+          >
+            <ion-text color="danger"
+              >Désolé mais ce champs est obligatoire.</ion-text
+            >
+          </div>
+          <div
+            class="ion-padding"
+            color="danger"
+            *ngIf="this.register.controls?.phone.errors?.minlength"
+          >
+            <ion-text color="danger"
+              >Renseignez exactement 09 caractères.</ion-text
+            >
+          </div>
+          <div
+            class="ion-padding"
+            color="danger"
+            *ngIf="this.register.controls?.phone.errors?.maxlength"
+          >
+            <ion-text color="danger"
+              >Renseignez exactement 09 caractères.</ion-text
+            >
+          </div>
+        </span>
+
+        <ion-input
+          label="Matricule"
+          label-placement="floating"
+          fill="outline"
+          type="text"
+          placeholder="2223i393"
+          [clearInput]="true"
+          formControlName="matricule"
+        >
+        </ion-input>
+        <span
+          *ngIf="this.register.controls?.matricule.touched && this.register.controls?.matricule.invalid"
+        >
+          <div
+            class="ion-padding"
+            *ngIf="this.register.controls?.matricule.errors?.required"
+          >
+            <ion-text color="danger"
+              >Désolé mais ce champs est obligatoire.</ion-text
+            >
+          </div>
+          <div
+            class="ion-padding"
+            color="danger"
+            *ngIf="this.register.controls?.matricule.errors?.minlength"
+          >
+            <ion-text color="danger"
+              >Renseignez exactement 08 caractères.</ion-text
+            >
+          </div>
+          <div
+            class="ion-padding"
+            color="danger"
+            *ngIf="this.register.controls?.matricule.errors?.maxlength"
+          >
+            <ion-text color="danger"
+              >Renseignez exactement 08 caractères.</ion-text
+            >
+          </div>
+        </span>
+
+        <ion-select
+          label="Cycle d'étude"
+          label-placement="floating"
+          fill="outline"
+          multiple="false"
+          placeholder="ex : Ingénieur"
+          formControlName="cycle"
+        >
+          <ion-select-option value="ingenieur">Ingénieur</ion-select-option>
+          <ion-select-option value="management">Management</ion-select-option>
+          <ion-select-option value="licence">Licence</ion-select-option>
+          <ion-select-option value="masteur">Masteur</ion-select-option>
+        </ion-select>
+        <span
+          *ngIf="this.register.controls?.cycle.touched && this.register.controls?.cycle.invalid"
+        >
+          <div
+            class="ion-padding"
+            *ngIf="this.register.controls?.cycle.errors?.required"
+          >
+            <ion-text color="danger"
+              >Désolé mais ce champs est obligatoire.</ion-text
+            >
+          </div>
+        </span>
+
+        <ion-select
+          label="Spécialité"
+          label-placement="floating"
+          fill="outline"
+          multiple="false"
+          placeholder="ex : ISI"
+          formControlName="speciality"
+        >
+          <ion-select-option value="ingenieur">ISI</ion-select-option>
+          <ion-select-option value="management">SRT</ion-select-option>
+          <ion-select-option value="licence">Génie Logiciel</ion-select-option>
+          <ion-select-option value="masteur">Management</ion-select-option>
+        </ion-select>
+        <span
+          *ngIf="this.register.controls?.speciality.touched && this.register.controls?.speciality.invalid"
+        >
+          <div
+            class="ion-padding"
+            *ngIf="this.register.controls?.speciality.errors?.required"
+          >
+            <ion-text color="danger"
+              >Désolé mais ce champs est obligatoire.</ion-text
+            >
+          </div>
+        </span>
+
+        <ion-select
+          label="Niveau d'étude"
+          label-placement="floating"
+          fill="outline"
+          multiple="false"
+          placeholder="ex : 4"
+          formControlName="niveau"
+        >
+          <ion-select-option>1</ion-select-option>
+          <ion-select-option>2</ion-select-option>
+          <ion-select-option>3</ion-select-option>
+          <ion-select-option>4</ion-select-option>
+          <ion-select-option>5</ion-select-option>
+        </ion-select>
+        <span
+          *ngIf="this.register.controls?.niveau.touched && this.register.controls?.niveau.invalid"
+        >
+          <div
+            class="ion-padding"
+            *ngIf="this.register.controls?.niveau.errors?.required"
+          >
+            <ion-text color="danger"
+              >Désolé mais ce champs est obligatoire.</ion-text
+            >
+          </div>
+        </span>
+
+        <ion-button
+          type="submit"
+          shape="round"
+          fill="outline"
+          size="small"
+          class="submit"
+        >
+          <ion-icon name="save-outline"></ion-icon>
+        </ion-button>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="selected === 'liste'">
+    <div class="container-fluid">
+      <ion-item>
+        <ion-icon name="search-outline"></ion-icon>
+        <ion-input
+          type="text"
+          placeholder="Recherchez un étudiant...."
+        ></ion-input>
+      </ion-item>
+      <br>
+      <ion-item *ngFor="let item of listeEtudiant" style="margin-bottom: 5px;">
+        {{ item.fullname }}
+      </ion-item>
+    </div>
+
+  </div>
+</ion-content>

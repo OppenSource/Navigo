@@ -1,0 +1,22 @@
+{
+  "login": {
+    "title": "Hello, welcome back 👋",
+    "subtitle": "Happy to see you again, please login here. ",
+    "username": {
+      "label": "Username",
+      "placeholder": "Enter your username....",
+      "required": "Sorry but this field is required.",
+      "minlength": "Enter at least 06 characters.",
+      "maxlength": "Enter no more than 20 characters."
+    },
+    "password": {
+      "required": "Sorry but this field is required."
+    },
+    "remember_me": "Remember Me.",
+    "forgot_password": "Forgot Password ?",
+    "submit": "Login",
+    "footer_text": "You don't have an account ?",
+    "footer_link": "Register"
+  },
+  "login.title": "Login"
+}

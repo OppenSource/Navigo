@@ -1,0 +1,21 @@
+{
+  "login": {
+    "title": "Bonjour, bon retour 👋",
+    "subtitle": "Heureux de vous revoir, merci de vous connecter ici.",
+    "username": {
+      "label": "Nom d'utilisateur",
+      "placeholder": "Entrez votre nom d'utilisateur....",
+      "required": "Désolé mais ce champ est obligatoire.",
+      "minlength": "Entrez au moins 06 caractères.",
+      "maxlength": "Entrez au plus 20 caractères."
+    },
+    "password": {
+      "required": "Désolé mais ce champ est obligatoire."
+    },
+    "remember_me": "Se Souvenir de moi.",
+    "forgot_password": "Mot de passe oublié ?",
+    "submit": "Connexion",
+    "footer_text": "Vous n'avez pas de compte ?",
+    "footer_link": "S'inscrire"
+  }
+}

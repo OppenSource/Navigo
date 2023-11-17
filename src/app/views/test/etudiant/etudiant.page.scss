@@ -1,0 +1,134 @@
+ion-header {
+  --border: none;
+  --background: transparent;
+  ion-toolbar {
+    --background: transparent;
+    padding: 2%;
+
+    .img-header {
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 2rem;
+        margin-right: 8px;
+      }
+    }
+
+    .img-text-header {
+      padding: 0;
+
+      p {
+        font-size: 1rem;
+        margin-top: 5px;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0;
+        font-weight: 200;
+        .salutation{
+          color: var(--ion-color-medium);
+        }
+      }
+      .journee{
+        font-size: .75rem;
+      }
+    }
+
+    ion-icon{
+      margin-left: auto;
+      --background: transparent;
+      color: var(--ion-color-dark);
+      font-size: 1.5rem;
+      margin-top: 15px;
+      margin-right: 2px;
+    }
+
+    ion-segment {
+      --background: transparent;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      --border: none;
+      border-radius: 0px;
+      padding: 2%;
+
+      ion-segment-button {
+        --background-checked: var(--ion-color-success);
+        --color-checked: var(--ion-color-success-contrast);
+        --indicator-color: transparent;
+        margin-bottom: 2%;
+      }
+    }
+
+  }
+}
+
+.container-fluid {
+  padding-top: 2%;
+  padding-left: 8%;
+  padding-right: 8%;
+  padding-bottom: 1%;
+
+  ion-icon {
+      font-weight: bold;
+      font-size: 2rem;
+      margin: 0;
+  }
+
+  h1 {
+      font-weight: bold;
+      margin-bottom: 0px;
+      font-size: 2rem;
+  }
+
+  p {
+      margin-bottom: 1.5rem;
+      --color: var(--ion-color-medium);
+      margin-bottom: 0px;
+      font-size: .7rem;
+  }
+
+  form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      ion-input {
+          margin-top: .75rem;
+          --border-color: var(--ion-color-medium);
+          --highlight-color: var(--ion-color-medium);
+      }
+
+      ion-select {
+          margin-top: .75rem;
+          --border-color: var(--ion-color-medium);
+          --highlight-color: var(--ion-color-medium);
+      }
+
+      .submit {
+          margin-top: 15%;
+          width: 40px;
+          height: 40px;
+          --border-width: 1.8px;
+          --border-style: solid;
+          --box-shadow: none;
+          --background-activated: transparent;
+          --border-color: var(--ion-color-medium);
+          --background: transparent;
+          --color: var(--ion-color-dark);
+
+          ion-icon {
+              font-size: 1rem;
+              font-weight: bold;
+          }
+      }
+  }
+
+  ion-item{
+    border-radius: 15px;
+
+    ion-input{
+      margin-left: 5px;
+    }
+  }
+}

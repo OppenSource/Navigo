@@ -26,7 +26,35 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     loadChildren: () => import('./views/common/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },  {
+    path: 'drivers',
+    loadChildren: () => import('./views/pages/drivers/drivers.module').then( m => m.DriversPageModule)
   },
+  {
+    path: 'messages',
+    loadChildren: () => import('./views/pages/messages/messages.module').then( m => m.MessagesPageModule)
+  },
+  {
+    path: 'cars',
+    loadChildren: () => import('./views/pages/cars/cars.module').then( m => m.CarsPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./views/pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'dashbaord',
+    loadChildren: () => import('./views/pages/dashbaord/dashbaord.module').then( m => m.DashbaordPageModule)
+  },
+  {
+    path: 'cars-details',
+    loadChildren: () => import('./views/pages/cars-details/cars-details.module').then( m => m.CarsDetailsPageModule)
+  },
+  {
+    path: 'etudiant',
+    loadChildren: () => import('./views/test/etudiant/etudiant.module').then( m => m.EtudiantPageModule)
+  },
+
 ];
 
 @NgModule({
