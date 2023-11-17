@@ -1,22 +1,33 @@
-
-<ion-header>
-  <ion-toolbar>
-    <ion-grid fixed>
-      <ion-row>
-        <div class="img-header">
-          <img src="assets/avatars/1.png" />
-        </div>
-        <div class="img-text-header">
-          <p>
-            <span class="salutation">Hello, </span>
-            <span class="username">Brice Nanyang</span>
-          </p>
-          <span class="journee">
-            {{ formattedDate }}
-          </span>
-        </div>
+<ion-toolbar>
+  <ion-grid fixed>
+    <ion-row>
+      <div class="img-header">
+        <img src="assets/avatars/1.png" />
+      </div>
+      <div class="img-text-header">
+        <p>
+          <span class="salutation">Welcome back, </span>
+        </p>
+        <span class="journee"> Brice Nanyang </span>
+      </div>
+      <div class="grid">
         <ion-icon name="notifications-outline"></ion-icon>
-      </ion-row>
-    </ion-grid>
-  </ion-toolbar>
-</ion-header>
+      </div>
+    </ion-row>
+
+    <ion-row class="row-search">
+      <ion-col size="10">
+        <ion-item class="item-search">
+          <ion-icon name="search-outline"></ion-icon>
+          <ion-input type="text" placeholder="Awesome Input"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="2">
+        <div class="grid1">
+          <ion-icon name="options-outline"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-toolbar>

@@ -27,33 +27,37 @@ const routes: Routes = [
     path: 'forgot-password',
     loadChildren: () => import('./views/common/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },  {
-    path: 'drivers',
-    loadChildren: () => import('./views/pages/drivers/drivers.module').then( m => m.DriversPageModule)
+    path: 'message',
+    loadChildren: () => import('./views/views/message/message.module').then( m => m.MessagePageModule)
   },
   {
-    path: 'messages',
-    loadChildren: () => import('./views/pages/messages/messages.module').then( m => m.MessagesPageModule)
+    path: 'driver',
+    loadChildren: () => import('./views/views/driver/driver.module').then( m => m.DriverPageModule)
   },
   {
-    path: 'cars',
-    loadChildren: () => import('./views/pages/cars/cars.module').then( m => m.CarsPageModule)
+    path: 'bus',
+    loadChildren: () => import('./views/views/bus/bus.module').then( m => m.BusPageModule)
   },
   {
-    path: 'profile',
-    loadChildren: () => import('./views/pages/profile/profile.module').then( m => m.ProfilePageModule)
+    path: 'student',
+    loadChildren: () => import('./views/views/student/student.module').then( m => m.StudentPageModule)
   },
   {
-    path: 'dashbaord',
-    loadChildren: () => import('./views/pages/dashbaord/dashbaord.module').then( m => m.DashbaordPageModule)
+    path: 'journey',
+    loadChildren: () => import('./views/views/journey/journey.module').then( m => m.JourneyPageModule)
   },
   {
-    path: 'cars-details',
-    loadChildren: () => import('./views/pages/cars-details/cars-details.module').then( m => m.CarsDetailsPageModule)
+    path: 'admin',
+    loadChildren: () => import('./views/administration/admin/admin.module').then( m => m.AdminPageModule)
   },
   {
-    path: 'etudiant',
-    loadChildren: () => import('./views/test/etudiant/etudiant.module').then( m => m.EtudiantPageModule)
+    path: 'settings',
+    loadChildren: () => import('./views/settings/settings/settings.module').then( m => m.SettingsPageModule)
   },
+  {
+    path: 'statistics',
+    loadChildren: () => import('./views/settings/statistics/statistics.module').then( m => m.StatisticsPageModule)
+  }
 
 ];
 

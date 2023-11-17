@@ -1,3 +1,104 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-content>
+        <ion-menu-toggle>
+          <div class="container">
+            <div class="row">
+              <div class="fl">
+                <img src="./assets/avatars/1.png" alt="avatar" srcset="">
+                <ion-icon name="log-out-outline"></ion-icon>
+              </div>
+            </div>
+            <div class="title">
+              <h2>Brice Nanyang</h2>
+              <p>2223i393</p>
+            </div>
+
+            <div class="data">
+              <span>Ingénieur</span>
+              <span class="mx-1">-</span>
+              <span>niveau 4</span>
+              <span class="mx-1">-</span>
+              <span>ISI</span>
+            </div>
+          </div>
+
+          <ion-list lines="none">
+            <ion-item routerLink="/home">
+              <ion-icon name="home-outline" color="dark"></ion-icon>
+              <span>Dashboard</span>
+              <ion-icon name="chevron-forward-outline" color="dark" style="font-size: 1rem; margin-left: auto;"></ion-icon>
+            </ion-item>
+
+            <ion-item routerLink="/student">
+              <ion-icon name="people-outline" color="dark"></ion-icon>
+              <span>Students</span>
+              <ion-icon name="chevron-forward-outline" color="dark" style="font-size: 1rem; margin-left: auto;"></ion-icon>
+            </ion-item>
+
+            <ion-item routerLink="/bus">
+              <ion-icon name="car-outline" color="dark"></ion-icon>
+              <span>Cars</span>
+              <ion-icon name="chevron-forward-outline" color="dark" style="font-size: 1rem; margin-left: auto;"></ion-icon>
+            </ion-item>
+
+            <ion-item routerLink="/driver">
+              <ion-icon name="person-outline" color="dark"></ion-icon>
+              <span>Drivers</span>
+              <ion-icon name="chevron-forward-outline" color="dark" style="font-size: 1rem; margin-left: auto;"></ion-icon>
+            </ion-item>
+
+            <ion-item routerLink="/journey">
+              <ion-icon name="bicycle-outline" color="dark"></ion-icon>
+              <span>Journeys</span>
+              <ion-icon name="chevron-forward-outline" color="dark" style="font-size: 1rem; margin-left: auto;"></ion-icon>
+            </ion-item>
+
+            <ion-item routerLink="/admin">
+              <ion-icon name="options-outline" color="dark"></ion-icon>
+              <span>Administration</span>
+              <ion-icon name="chevron-forward-outline" color="dark" style="font-size: 1rem; margin-left: auto;"></ion-icon>
+            </ion-item>
+
+            <ion-item routerLink="/message">
+              <ion-icon name="chatbubbles-outline" color="dark"></ion-icon>
+              <span>Mails</span>
+              <ion-icon name="chevron-forward-outline" color="dark" style="font-size: 1rem; margin-left: auto;"></ion-icon>
+            </ion-item>
+
+            <ion-item routerLink="/statistics">
+              <ion-icon name="analytics-outline" color="dark"></ion-icon>
+              <span>Statistics</span>
+              <ion-icon name="chevron-forward-outline" color="dark" style="font-size: 1rem; margin-left: auto;"></ion-icon>
+            </ion-item>
+
+            <ion-item routerLink="/settings">
+              <ion-icon name="settings-outline" color="dark"></ion-icon>
+              <span>Paramètres</span>
+              <ion-icon name="chevron-forward-outline" color="dark" style="font-size: 1rem; margin-left: auto;"></ion-icon>
+            </ion-item>
+
+            <ion-item routerLink="/settings">
+              <ion-icon name="log-out-outline" color="dark"></ion-icon>
+              <span>Déconnexion</span>
+              <ion-icon name="chevron-forward-outline" color="dark" style="font-size: 1rem; margin-left: auto;"></ion-icon>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-icon name="moon-outline" color="dark"></ion-icon>
+              <ion-label>
+                <h2>
+                  <ion-toggle justify="space-between" (ionChange)="toggleTheme($event)" mode="ios">
+                    <span>Dark Mode ?</span>
+                  </ion-toggle>
+                </h2>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-menu-toggle>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
 </ion-app>

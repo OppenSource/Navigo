@@ -3,7 +3,9 @@
     <ion-grid fixed>
       <ion-row>
         <div class="img-header">
-          <img src="assets/avatars/1.png" />
+          <ion-menu-button>
+            <img src="assets/avatars/1.png" />
+          </ion-menu-button>
         </div>
         <div class="img-text-header">
           <p>
@@ -11,8 +13,10 @@
           </p>
           <span class="journee"> Brice Nanyang </span>
         </div>
-        <div class="grid">
-          <ion-icon name="notifications-outline"></ion-icon>
+
+        <div class="grid" [routerLink]="['/message']">
+          <ion-icon name="notifications-outline" class="custom-icon"></ion-icon>
+          <span class="custom-badge">5</span>
         </div>
       </ion-row>
 
@@ -20,7 +24,10 @@
         <ion-col size="10">
           <ion-item class="item-search">
             <ion-icon name="search-outline"></ion-icon>
-            <ion-input type="text" placeholder="Awesome Input"></ion-input>
+            <ion-input
+              type="text"
+              placeholder="Search any thinks....."
+            ></ion-input>
           </ion-item>
         </ion-col>
 
@@ -38,7 +45,7 @@
   <div class="container-fluid">
     <ion-grid fixed>
       <ion-row>
-        <ion-col size="6">
+        <ion-col size="6" [routerLink]="['/bus']">
           <ion-card>
             <ion-card-content>
               <img src="assets/bg/bus-school.png" alt="" srcset="" />
@@ -47,7 +54,7 @@
           </ion-card>
         </ion-col>
 
-        <ion-col size="6">
+        <ion-col size="6" [routerLink]="['/student']">
           <ion-card>
             <ion-card-content>
               <img src="assets/bg/students.png" alt="" srcset="" />
@@ -56,7 +63,7 @@
           </ion-card>
         </ion-col>
 
-        <ion-col size="6">
+        <ion-col size="6" [routerLink]="['/journey']">
           <ion-card>
             <ion-card-content>
               <img src="assets/bg/user-experience.png" alt="" srcset="" />
@@ -65,16 +72,16 @@
           </ion-card>
         </ion-col>
 
-        <ion-col size="6">
+        <ion-col size="6" [routerLink]="['/driver']">
           <ion-card>
             <ion-card-content>
-            <img src="assets/bg/seatbelt.png" alt="" srcset="" />
+              <img src="assets/bg/seatbelt.png" alt="" srcset="" />
             </ion-card-content>
             <ion-card-footer> drivers </ion-card-footer>
           </ion-card>
         </ion-col>
 
-        <ion-col size="6">
+        <ion-col size="6" [routerLink]="['/admin']">
           <ion-card>
             <ion-card-content>
               <img src="assets/bg/administrator.png" alt="" srcset="" />
@@ -83,7 +90,7 @@
           </ion-card>
         </ion-col>
 
-        <ion-col size="6">
+        <ion-col size="6" [routerLink]="['/settings']">
           <ion-card>
             <ion-card-content>
               <img src="assets/bg/mobile-app.png" alt="" srcset="" />

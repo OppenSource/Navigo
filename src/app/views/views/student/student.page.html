@@ -1,0 +1,125 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <!-- <ion-icon name="arrow-back-outline"></ion-icon> -->
+    <ion-grid fixed>
+      <ion-row>
+        <ion-back-button></ion-back-button>
+        <ion-title style="text-align: left">Students</ion-title>
+        <div class="img-text-header">
+          <p>
+            <span class="salutation">Welcome back, </span>
+          </p>
+          <span class="journee"> Brice Nanyang </span>
+        </div>
+        <div class="img-header">
+          <ion-menu-button>
+            <img src="assets/avatars/1.png" />
+          </ion-menu-button>
+        </div>
+      </ion-row>
+
+      <ion-segment [(ngModel)]="selected" mode="ios" class="ion-no-border">
+        <ion-segment-button value="add"> Add </ion-segment-button>
+        <ion-segment-button value="list"> Listing </ion-segment-button>
+        <ion-segment-button value="bye"> Payement </ion-segment-button>
+        <ion-segment-button value="statt"> Statistics </ion-segment-button>
+      </ion-segment>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container-fluid">
+    <div *ngIf="selected === 'add'">
+      <div class="text-sub-header">
+        Please enter correct all informations about car to finish the registration.
+      </div>
+      <div class="form-login">
+        <form novalidate>
+          <div class="form-group">
+            <ion-input
+              label="Immatriculation"
+              type="text"
+              label-placement="floating"
+              fill="outline"
+              placeholder="Enter your username...."
+              [clearInput]="true"
+              autocomplete="off"
+              autocorrect="on"
+            ></ion-input>
+          </div>
+
+          <div class="form-group">
+            <ion-input
+              label="Color"
+              type="text"
+              label-placement="floating"
+              fill="outline"
+              placeholder="Enter your password...."
+              [clearInput]="true"
+              autocomplete="off"
+              autocorrect="on"
+            ></ion-input>
+          </div>
+
+          <div class="form-group">
+            <ion-input
+              label="Marque"
+              type="password"
+              label-placement="floating"
+              fill="outline"
+              placeholder="Enter your password...."
+              [clearInput]="true"
+              autocomplete="off"
+              autocorrect="on"
+            ></ion-input>
+          </div>
+
+          <div class="form-group">
+            <ion-select
+            label="Type"
+            label-placement="floating"
+            fill="outline"
+            multiple="false"
+            placeholder="ex : Coaster"
+          >
+            <ion-select-option value="student">Voiture</ion-select-option>
+            <ion-select-option value="driver">Coaster</ion-select-option>
+            <ion-select-option value="admin">Bus</ion-select-option>
+          </ion-select>
+          </div>
+
+          <div class="form-group">
+            <ion-input
+              label="Photo"
+              type="file"
+              label-placement="floating"
+              fill="outline"
+              placeholder="Enter your password...."
+              [clearInput]="true"
+              autocomplete="off"
+              autocorrect="on"
+            ></ion-input>
+          </div>
+
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="6">
+                <ion-button expand="block" type="reset" color="danger">
+                  Cancel <ion-icon name="close-circle-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col size="6">
+                <ion-button expand="block" type="submit">
+                  Save <ion-icon name="save-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </div>
+    </div>
+    <div *ngIf="selected === 'list'"></div>
+    <div *ngIf="selected === 'statt'"></div>
+  </div>
+</ion-content>
