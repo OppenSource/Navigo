@@ -1,0 +1,84 @@
+ion-toolbar {
+  // --ion-background-color: transparent;
+  padding: 2%;
+
+  ion-grid {
+    ion-row {
+      .img-header {
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 2rem;
+          margin-right: 8px;
+        }
+      }
+
+      .img-text-header {
+        padding: 0;
+
+        p {
+          font-size: 1rem;
+          margin-top: 0px;
+          margin-bottom: 0;
+          margin-left: 0;
+          margin-right: 0;
+          padding: 0;
+          font-weight: 200;
+
+          .salutation {
+            color: var(--ion-color-medium);
+            font-size: 0.8rem;
+          }
+        }
+        .journee {
+          font-size: 0.85rem;
+        }
+      }
+
+      .grid {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: var(--ion-color-light);
+        border-radius: 2rem;
+        font-size: 20px;
+        margin-left: auto;
+        margin-top: 2.5px;
+        color: var(--ion-color-dark);
+      }
+    }
+
+    .row-search {
+      margin-top: 5px;
+
+      ion-col {
+        ion-item {
+          border-radius: 10px;
+          border: 1px solid var(--ion-color-medium);
+          --height: 16px;
+          --ion-background-color: transparent;
+
+          ion-icon {
+            font-size: 1.8rem;
+            margin-right: 10px;
+          }
+        }
+
+        .grid1 {
+          width: 100%;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: var(--ion-color-primary);
+          border-radius: 10px;
+          margin-top: 6.5px;
+          font-size: 1.35rem;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

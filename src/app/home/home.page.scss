@@ -1,12 +1,15 @@
 ion-header {
   --border: none;
-  // --ion-background-color: transparent;
+  --background-color: transparent;
 
   ion-toolbar {
-    // --ion-background-color: transparent;
     padding: 2%;
+    --border: none;
+    --background-color: transparent;
 
     ion-grid {
+    --border: none;
+
       ion-row {
         .img-header {
           img {
@@ -52,6 +55,21 @@ ion-header {
           margin-top: 2.5px;
           color: var(--ion-color-dark);
         }
+
+        .custom-icon {
+          position: relative;
+        }
+
+        .custom-badge {
+          position: absolute;
+          top: 0;
+          right: 0;
+          background-color: red; // Customize the badge background color
+          color: white; // Customize the badge text color
+          border-radius: 50%;
+          padding: 4px 8px; // Adjust padding as needed
+          font-size: 12px; // Customize the badge font size
+        }
       }
 
       .row-search {
@@ -91,6 +109,7 @@ ion-header {
 ion-content {
   .container-fluid {
     padding: 2%;
+    margin-top: 20px;
 
     ion-grid {
       ion-row {

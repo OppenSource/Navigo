@@ -18,5 +18,14 @@
     "footer_text": "You don't have an account ?",
     "footer_link": "Register"
   },
-  "login.title": "Login"
+  "home": {
+    "hello": "Welcome, back!",
+    "search": "Search any thinks.....",
+    "bus": "School Bus",
+    "students": "Students",
+    "journeys": "Journeys",
+    "drivers": "Drivers",
+    "administration": "Administration",
+    "setting": "Settings"
+  }
 }

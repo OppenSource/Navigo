@@ -1,0 +1,117 @@
+ion-header {
+  --border: none;
+  --background-color: transparent;
+
+  ion-toolbar {
+    padding: 2%;
+    --border: none;
+    --background-color: transparent;
+
+    ion-grid {
+      --border: none;
+
+      ion-row {
+        margin-bottom: 5px;
+        .img-header {
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 2rem;
+            margin-right: 8px;
+          }
+        }
+
+        .img-text-header {
+          margin-left: auto;
+          padding: 0;
+
+          p {
+            font-size: 1rem;
+            margin-top: 0px;
+            margin-bottom: 0;
+            margin-left: 0;
+            margin-right: 0;
+            padding: 0;
+            font-weight: 200;
+
+            .salutation {
+              color: var(--ion-color-medium);
+              font-size: 0.8rem;
+            }
+          }
+          .journee {
+            font-size: 0.85rem;
+          }
+        }
+      }
+
+      ion-segment {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        --border: none;
+        border-radius: 0px;
+        padding: 3%;
+        background: transparent;
+
+        ion-segment-button {
+          --background-checked: var(--ion-color-primary);
+          --color-checked: var(--ion-color-primary-contrast);
+          --indicator-color: transparent;
+          margin-bottom: 2%;
+        }
+      }
+    }
+  }
+}
+
+ion-content {
+  .container-fluid {
+    padding: 5%;
+    margin-top: 20px;
+
+    .text-sub-header{
+      color: var(--ion-color-medium);
+      margin-top: .2rem;
+      font-size: .85rem;
+      text-align: center;
+    }
+
+    .form-login {
+
+      .form-group {
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+
+      .ending {
+        float: right;
+      }
+
+      ion-grid{
+        padding: 0;
+        margin: 0;
+
+        ion-row{
+          padding: 0;
+          margin: 0;
+
+          ion-col{
+            padding: 0;
+            margin: 0;
+
+            ion-button {
+              text-transform: capitalize;
+              font-weight: bold;
+              font-size: 1rem;
+
+              ion-icon{
+                margin-left: 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

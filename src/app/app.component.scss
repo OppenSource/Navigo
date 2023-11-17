@@ -1,0 +1,95 @@
+.container {
+  padding: 20px;
+
+  .row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
+  }
+
+  .row > * {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+    margin-top: var(--bs-gutter-y);
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 7px solid --ion-color-dark;
+    margin-right: 12px;
+  }
+
+  ion-icon {
+    float: right;
+    font-size: 23px;
+    margin-top: 4.5%;
+    color: --ion-color-dark;
+  }
+
+  h2 {
+    font-weight: bold;
+    font-size: 1.25rem;
+    padding: 0;
+    margin-top: 25px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    color: --ion-color-dark;
+  }
+
+  p {
+    font-weight: 300;
+    font-size: 0.85rem;
+    margin-top: 3px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    padding: 0;
+    color: --ion-color-step-300;
+  }
+
+  .data {
+    margin-top: 6%;
+    color: --ion-color-dark;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
+  .mx-1 {
+    margin-right: 0.25rem !important;
+    margin-left: 0.25rem !important;
+  }
+
+  .mx-2 {
+    margin-right: 0.5rem !important;
+    margin-left: 0.5rem !important;
+  }
+}
+
+ion-list {
+  --ion-item-background: none;
+  ion-item {
+    ion-icon {
+      margin-right: 10px;
+      font-size: 23px;
+    }
+
+    span {
+      font-weight: 600;
+      font-size: 18px;
+      margin-top: 5px;
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+  }
+}
