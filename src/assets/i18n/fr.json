@@ -1,4 +1,5 @@
 {
+  "hello": "Bonjour",
   "login": {
     "title": "Bonjour, bon retour 👋",
     "subtitle": "Heureux de vous revoir, merci de vous connecter ici.",
@@ -18,4 +19,5 @@
     "footer_text": "Vous n'avez pas de compte ?",
     "footer_link": "S'inscrire"
   }
+
 }
