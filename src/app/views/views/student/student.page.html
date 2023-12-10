@@ -21,9 +21,41 @@
       <ion-segment [(ngModel)]="selected" mode="ios" class="ion-no-border">
         <ion-segment-button value="add"> Add </ion-segment-button>
         <ion-segment-button value="list"> Listing </ion-segment-button>
-        <ion-segment-button value="bye"> Payement </ion-segment-button>
-        <ion-segment-button value="statt"> Statistics </ion-segment-button>
+        <ion-segment-button value="accessibility">
+          Accessibility
+        </ion-segment-button>
+        <ion-segment-button value="scanner"> Qrcode </ion-segment-button>
       </ion-segment>
+
+      <ion-item class="item-search" *ngIf="selected === 'list'">
+        <ion-icon name="search-outline"></ion-icon>
+        <ion-input
+          type="text"
+          placeholder="Filter the information des étudiants....."
+          (ionInput)="handleInput($event)"
+          [clearInput]="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="item-search" *ngIf="selected === 'accessibility'">
+        <ion-icon name="search-outline"></ion-icon>
+        <ion-input
+          type="text"
+          placeholder="Filtrez les étudiants..."
+          (ionInput)="studentAutocomplete($event)"
+          [clearInput]="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-list [hidden]="autocomplete.length <= 0">
+        <ion-item
+          style="margin-bottom: 4px"
+          *ngFor="let item of autocomplete"
+          (click)="selectedAutocomplete(item)"
+        >
+          <ion-label> {{item.matricule}} | {{item.fullname}} </ion-label>
+        </ion-item>
+      </ion-list>
     </ion-grid>
   </ion-toolbar>
 </ion-header>
@@ -31,75 +63,227 @@
 <ion-content>
   <div class="container-fluid">
     <div *ngIf="selected === 'add'">
-      <div class="text-sub-header">
-        Please enter correct all informations about car to finish the registration.
-      </div>
       <div class="form-login">
-        <form novalidate>
+        <form [formGroup]="add" (ngSubmit)="save()" novalidate>
           <div class="form-group">
-            <ion-input
-              label="Immatriculation"
-              type="text"
-              label-placement="floating"
-              fill="outline"
-              placeholder="Enter your username...."
-              [clearInput]="true"
-              autocomplete="off"
-              autocorrect="on"
-            ></ion-input>
+            <ion-button expand="block" (click)="takePicture()">
+              Take A Picture &nbsp; <ion-icon name="camera-outline"></ion-icon>
+            </ion-button>
           </div>
 
           <div class="form-group">
             <ion-input
-              label="Color"
+              label="Matricule"
               type="text"
               label-placement="floating"
               fill="outline"
-              placeholder="Enter your password...."
+              placeholder="Enter the matricule...."
               [clearInput]="true"
               autocomplete="off"
               autocorrect="on"
+              formControlName="matricule"
             ></ion-input>
+            <span
+              *ngIf="this.add.controls?.matricule.touched && this.add.controls?.matricule.invalid"
+            >
+              <div
+                class="ion-padding"
+                *ngIf="this.add.controls?.matricule.errors?.required"
+              >
+                <ion-text color="danger"
+                  >Désolé mais ce champs est obligatoire.</ion-text
+                >
+              </div>
+              <div
+                class="ion-padding"
+                color="danger"
+                *ngIf="this.add.controls?.matricule.errors?.minlength"
+              >
+                <ion-text color="danger"
+                  >Renseignez au moins 09 caractères.</ion-text
+                >
+              </div>
+              <div
+                class="ion-padding"
+                color="danger"
+                *ngIf="this.add.controls?.matricule.errors?.maxlength"
+              >
+                <ion-text color="danger"
+                  >Renseignez au plus 10 caractères.</ion-text
+                >
+              </div>
+            </span>
           </div>
 
           <div class="form-group">
             <ion-input
-              label="Marque"
-              type="password"
+              label="Full Name"
+              type="text"
               label-placement="floating"
               fill="outline"
-              placeholder="Enter your password...."
+              placeholder="Enter the fullname...."
               [clearInput]="true"
               autocomplete="off"
               autocorrect="on"
+              formControlName="fullname"
             ></ion-input>
+            <span
+              *ngIf="this.add.controls?.fullname.touched && this.add.controls?.fullname.invalid"
+            >
+              <div
+                class="ion-padding"
+                *ngIf="this.add.controls?.fullname.errors?.required"
+              >
+                <ion-text color="danger"
+                  >Désolé mais ce champs est obligatoire.</ion-text
+                >
+              </div>
+              <div
+                class="ion-padding"
+                color="danger"
+                *ngIf="this.add.controls?.fullname.errors?.minlength"
+              >
+                <ion-text color="danger"
+                  >Renseignez au moins 04 caractères.</ion-text
+                >
+              </div>
+            </span>
           </div>
 
           <div class="form-group">
             <ion-select
-            label="Type"
-            label-placement="floating"
-            fill="outline"
-            multiple="false"
-            placeholder="ex : Coaster"
-          >
-            <ion-select-option value="student">Voiture</ion-select-option>
-            <ion-select-option value="driver">Coaster</ion-select-option>
-            <ion-select-option value="admin">Bus</ion-select-option>
-          </ion-select>
+              label="Cycle"
+              label-placement="floating"
+              fill="outline"
+              multiple="false"
+              placeholder="ex : Ingénieur"
+              formControlName="cycle"
+            >
+              <ion-select-option>Master</ion-select-option>
+              <ion-select-option>Ingénieur</ion-select-option>
+              <ion-select-option>Licence Management</ion-select-option>
+              <ion-select-option>Licence Professionnelle</ion-select-option>
+            </ion-select>
+            <span
+              *ngIf="this.add.controls?.cycle.touched && this.add.controls?.cycle.invalid"
+            >
+              <div
+                class="ion-padding"
+                *ngIf="this.add.controls?.cycle.errors?.required"
+              >
+                <ion-text color="danger"
+                  >Désolé mais ce champs est obligatoire.</ion-text
+                >
+              </div>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <ion-select
+              label="Level"
+              label-placement="floating"
+              fill="outline"
+              multiple="false"
+              placeholder="ex : 1"
+              formControlName="level"
+            >
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+              <ion-select-option value="5">5</ion-select-option>
+            </ion-select>
+            <span
+              *ngIf="this.add.controls?.level.touched && this.add.controls?.level.invalid"
+            >
+              <div
+                class="ion-padding"
+                *ngIf="this.add.controls?.level.errors?.required"
+              >
+                <ion-text color="danger"
+                  >Désolé mais ce champs est obligatoire.</ion-text
+                >
+              </div>
+            </span>
           </div>
 
           <div class="form-group">
             <ion-input
-              label="Photo"
-              type="file"
+              label="Email"
+              type="text"
               label-placement="floating"
               fill="outline"
-              placeholder="Enter your password...."
+              placeholder="Enter the email of student...."
               [clearInput]="true"
               autocomplete="off"
               autocorrect="on"
+              formControlName="email"
             ></ion-input>
+            <span
+              *ngIf="this.add.controls?.email.touched && this.add.controls?.email.invalid"
+            >
+              <div
+                class="ion-padding"
+                *ngIf="this.add.controls?.email.errors?.required"
+              >
+                <ion-text color="danger"
+                  >Désolé mais ce champs est obligatoire.</ion-text
+                >
+              </div>
+              <div
+                class="ion-padding"
+                color="danger"
+                *ngIf="this.add.controls?.email.errors?.pattern"
+              >
+                <ion-text color="danger"
+                  >L'email n'est pas saint jean.</ion-text
+                >
+              </div>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <ion-input
+              label="Phone"
+              type="text"
+              label-placement="floating"
+              fill="outline"
+              placeholder="Enter the fullname of student...."
+              [clearInput]="true"
+              autocomplete="off"
+              autocorrect="on"
+              formControlName="phone"
+            ></ion-input>
+            <span
+              *ngIf="this.add.controls?.phone.touched && this.add.controls?.phone.invalid"
+            >
+              <div
+                class="ion-padding"
+                *ngIf="this.add.controls?.phone.errors?.required"
+              >
+                <ion-text color="danger"
+                  >Désolé mais ce champs est obligatoire.</ion-text
+                >
+              </div>
+              <div
+                class="ion-padding"
+                color="danger"
+                *ngIf="this.add.controls?.phone.errors?.minlength"
+              >
+                <ion-text color="danger"
+                  >Renseignez exactement 09 caractères.</ion-text
+                >
+              </div>
+              <div
+                class="ion-padding"
+                color="danger"
+                *ngIf="this.add.controls?.matricule.errors?.pattern"
+              >
+                <ion-text color="danger"
+                  >Le numéro doit commencer par << 6 >>.</ion-text
+                >
+              </div>
+            </span>
           </div>
 
           <ion-grid fixed>
@@ -110,16 +294,505 @@
                 </ion-button>
               </ion-col>
               <ion-col size="6">
-                <ion-button expand="block" type="submit">
+                <ion-button expand="block" type="submit" [disabled]="!isReady">
                   Save <ion-icon name="save-outline"></ion-icon>
                 </ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
+
+          <div class="form-group">
+            <img *ngIf="image" [src]="image" width="100%" />
+          </div>
         </form>
       </div>
     </div>
-    <div *ngIf="selected === 'list'"></div>
-    <div *ngIf="selected === 'statt'"></div>
+
+    <div *ngIf="selected === 'list'">
+      <div class="container">
+        <ion-card *ngFor="let item of data" (click)="actionsAboutStudent(item)">
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="4">
+                <img
+                  [src]="item.picture"
+                  alt=""
+                  srcset=""
+                  width="100%"
+                  height="123px"
+                />
+              </ion-col>
+              <ion-col size="8">
+                <h4>
+                  <span> {{item.matricule}} </span>
+                  Matricule :
+                </h4>
+                <h4>
+                  <span>{{item.fullname}} </span>
+                  Fullname :
+                </h4>
+                <h4>
+                  <span>{{item.cycle}} </span>
+                  Cycle :
+                </h4>
+                <h4>
+                  <span>{{item.level}} </span>
+                  Level :
+                </h4>
+                <h4>
+                  <span>{{item.phone}} </span>
+                  Phone :
+                </h4>
+                <h4>
+                  <span>{{ maskEmail(item.email) }}</span>
+                  email :
+                </h4>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </div>
+
+      <ion-modal
+        [isOpen]="isModalOpen"
+        [initialBreakpoint]="0.98"
+        [breakpoints]="[0, 0, 0, 0]"
+      >
+        <ng-template>
+          <ion-content>
+            <div class="container-fluid">
+              <div class="form-login">
+                <form [formGroup]="add" (ngSubmit)="updateStudent()" novalidate>
+                  <div class="form-group">
+                    <ion-button expand="block" (click)="takePicture()">
+                      Take A Picture &nbsp;
+                      <ion-icon name="camera-outline"></ion-icon>
+                    </ion-button>
+                  </div>
+
+                  <div class="form-group">
+                    <ion-input
+                      label="Matricule"
+                      type="text"
+                      label-placement="floating"
+                      fill="outline"
+                      placeholder="Enter the matricule...."
+                      [clearInput]="true"
+                      autocomplete="off"
+                      autocorrect="on"
+                      formControlName="matricule"
+                      [(ngModel)]="readyToUpdate.matricule"
+                      readonly
+                    ></ion-input>
+                    <span
+                      *ngIf="this.add.controls?.matricule.touched && this.add.controls?.matricule.invalid"
+                    >
+                      <div
+                        class="ion-padding"
+                        *ngIf="this.add.controls?.matricule.errors?.required"
+                      >
+                        <ion-text color="danger"
+                          >Désolé mais ce champs est obligatoire.</ion-text
+                        >
+                      </div>
+                      <div
+                        class="ion-padding"
+                        color="danger"
+                        *ngIf="this.add.controls?.matricule.errors?.minlength"
+                      >
+                        <ion-text color="danger"
+                          >Renseignez au moins 09 caractères.</ion-text
+                        >
+                      </div>
+                      <div
+                        class="ion-padding"
+                        color="danger"
+                        *ngIf="this.add.controls?.matricule.errors?.maxlength"
+                      >
+                        <ion-text color="danger"
+                          >Renseignez au plus 10 caractères.</ion-text
+                        >
+                      </div>
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <ion-input
+                      label="Full Name"
+                      type="text"
+                      label-placement="floating"
+                      fill="outline"
+                      placeholder="Enter the fullname...."
+                      [clearInput]="true"
+                      autocomplete="off"
+                      autocorrect="on"
+                      formControlName="fullname"
+                      [(ngModel)]="readyToUpdate.fullname"
+                    ></ion-input>
+                    <span
+                      *ngIf="this.add.controls?.fullname.touched && this.add.controls?.fullname.invalid"
+                    >
+                      <div
+                        class="ion-padding"
+                        *ngIf="this.add.controls?.fullname.errors?.required"
+                      >
+                        <ion-text color="danger"
+                          >Désolé mais ce champs est obligatoire.</ion-text
+                        >
+                      </div>
+                      <div
+                        class="ion-padding"
+                        color="danger"
+                        *ngIf="this.add.controls?.fullname.errors?.minlength"
+                      >
+                        <ion-text color="danger"
+                          >Renseignez au moins 04 caractères.</ion-text
+                        >
+                      </div>
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <ion-select
+                      label="Cycle"
+                      label-placement="floating"
+                      fill="outline"
+                      multiple="false"
+                      placeholder="ex : Ingénieur"
+                      formControlName="cycle"
+                      [(ngModel)]="readyToUpdate.cycle"
+                    >
+                      <ion-select-option>Master</ion-select-option>
+                      <ion-select-option>Ingénieur</ion-select-option>
+                      <ion-select-option>Licence Management</ion-select-option>
+                      <ion-select-option
+                        >Licence Professionnelle</ion-select-option
+                      >
+                    </ion-select>
+                    <span
+                      *ngIf="this.add.controls?.cycle.touched && this.add.controls?.cycle.invalid"
+                    >
+                      <div
+                        class="ion-padding"
+                        *ngIf="this.add.controls?.cycle.errors?.required"
+                      >
+                        <ion-text color="danger"
+                          >Désolé mais ce champs est obligatoire.</ion-text
+                        >
+                      </div>
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <ion-select
+                      label="Level"
+                      label-placement="floating"
+                      fill="outline"
+                      multiple="false"
+                      placeholder="ex : 1"
+                      formControlName="level"
+                      [(ngModel)]="readyToUpdate.level"
+                    >
+                      <ion-select-option value="1">1</ion-select-option>
+                      <ion-select-option value="2">2</ion-select-option>
+                      <ion-select-option value="3">3</ion-select-option>
+                      <ion-select-option value="4">4</ion-select-option>
+                      <ion-select-option value="5">5</ion-select-option>
+                    </ion-select>
+                    <span
+                      *ngIf="this.add.controls?.level.touched && this.add.controls?.level.invalid"
+                    >
+                      <div
+                        class="ion-padding"
+                        *ngIf="this.add.controls?.level.errors?.required"
+                      >
+                        <ion-text color="danger"
+                          >Désolé mais ce champs est obligatoire.</ion-text
+                        >
+                      </div>
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <ion-input
+                      label="Email"
+                      type="text"
+                      label-placement="floating"
+                      fill="outline"
+                      placeholder="Enter the email of student...."
+                      [clearInput]="true"
+                      autocomplete="off"
+                      autocorrect="on"
+                      formControlName="email"
+                      [(ngModel)]="readyToUpdate.email"
+                    ></ion-input>
+                    <span
+                      *ngIf="this.add.controls?.email.touched && this.add.controls?.email.invalid"
+                    >
+                      <div
+                        class="ion-padding"
+                        *ngIf="this.add.controls?.email.errors?.required"
+                      >
+                        <ion-text color="danger"
+                          >Désolé mais ce champs est obligatoire.</ion-text
+                        >
+                      </div>
+                      <div
+                        class="ion-padding"
+                        color="danger"
+                        *ngIf="this.add.controls?.email.errors?.pattern"
+                      >
+                        <ion-text color="danger"
+                          >L'email n'est pas saint jean.</ion-text
+                        >
+                      </div>
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <ion-input
+                      label="Phone"
+                      type="text"
+                      label-placement="floating"
+                      fill="outline"
+                      placeholder="Enter the fullname of student...."
+                      [clearInput]="true"
+                      autocomplete="off"
+                      autocorrect="on"
+                      formControlName="phone"
+                      [(ngModel)]="readyToUpdate.phone"
+                    ></ion-input>
+                    <span
+                      *ngIf="this.add.controls?.phone.touched && this.add.controls?.phone.invalid"
+                    >
+                      <div
+                        class="ion-padding"
+                        *ngIf="this.add.controls?.phone.errors?.required"
+                      >
+                        <ion-text color="danger"
+                          >Désolé mais ce champs est obligatoire.</ion-text
+                        >
+                      </div>
+                      <div
+                        class="ion-padding"
+                        color="danger"
+                        *ngIf="this.add.controls?.phone.errors?.minlength"
+                      >
+                        <ion-text color="danger"
+                          >Renseignez exactement 09 caractères.</ion-text
+                        >
+                      </div>
+                      <div
+                        class="ion-padding"
+                        color="danger"
+                        *ngIf="this.add.controls?.matricule.errors?.pattern"
+                      >
+                        <ion-text color="danger"
+                          >Le numéro doit commencer par << 6 >>.</ion-text
+                        >
+                      </div>
+                    </span>
+                  </div>
+
+                  <ion-grid fixed>
+                    <ion-row>
+                      <ion-col size="6">
+                        <ion-button expand="block" type="reset" color="danger">
+                          Cancel
+                          <ion-icon name="close-circle-outline"></ion-icon>
+                        </ion-button>
+                      </ion-col>
+                      <ion-col size="6">
+                        <ion-button
+                          expand="block"
+                          type="submit"
+                          [disabled]="!image"
+                        >
+                          Update <ion-icon name="save-outline"></ion-icon>
+                        </ion-button>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+
+                  <div class="form-group">
+                    <img *ngIf="image" [src]="image" width="100%" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>
+
+    <div *ngIf="selected === 'accessibility'">
+      <div class="container">
+        <div
+          *ngIf="selected1 === 'newAccesibility' || selected1 === 'checkAccesibility'"
+        >
+          <ion-segment [(ngModel)]="selected1" mode="ios" class="ion-no-border">
+            <ion-segment-button value="newAccesibility">
+              New Accessibility
+            </ion-segment-button>
+            <ion-segment-button value="checkAccesibility">
+              Check Student accessibility
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+
+        <div *ngIf="selected1 === 'newAccesibility'">
+          <div class="form-login">
+            <form novalidate>
+              <div class="form-group">
+                <ion-input
+                  label="Matricule"
+                  type="text"
+                  label-placement="floating"
+                  fill="outline"
+                  placeholder="Enter the matricule...."
+                  [clearInput]="true"
+                  autocomplete="off"
+                  autocorrect="on"
+                  readonly=""
+                  [(ngModel)]="student.matricule"
+                  [ngModelOptions]="{ standalone: true }"
+                ></ion-input>
+              </div>
+
+              <div class="form-group">
+                <ion-input
+                  label="Full Name"
+                  type="text"
+                  label-placement="floating"
+                  fill="outline"
+                  placeholder="Enter the matricule...."
+                  [clearInput]="true"
+                  autocomplete="off"
+                  autocorrect="on"
+                  readonly=""
+                  [(ngModel)]="student.fullname"
+                  [ngModelOptions]="{ standalone: true }"
+                ></ion-input>
+              </div>
+
+              <div class="form-group">
+                <ion-input
+                  label="Maturity Period"
+                  type="date"
+                  label-placement="floating"
+                  fill="outline"
+                  placeholder="Enter the matricule...."
+                  [clearInput]="true"
+                  autocomplete="off"
+                  autocorrect="on"
+                  readonly=""
+                ></ion-input>
+              </div>
+
+              <ion-grid fixed>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-button expand="block" type="reset" color="danger">
+                      Cancel <ion-icon name="close-circle-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-button expand="block" type="submit" [disabled]="!isReady">
+                      Save <ion-icon name="save-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </form>
+          </div>
+
+          <ion-card color="danger" style="padding: 12%; text-align: center !important; font-size: 1rem;" *ngIf="messageBusAccessStatus == 'no'">
+            {{messageBusAccess}}
+          </ion-card>
+
+          <ion-card color="success" style="padding: 12%; text-align: center !important; font-size: 1rem;" *ngIf="messageBusAccessStatus == 'yes'">
+            {{messageBusAccess}}
+          </ion-card>
+        </div>
+
+        <div *ngIf="selected1 === 'checkAccesibility'">
+          <div class="form-login">
+            <form novalidate>
+              <div class="form-group">
+                <ion-input
+                  label="Matricule"
+                  type="text"
+                  label-placement="floating"
+                  fill="outline"
+                  placeholder="Enter the matricule...."
+                  [clearInput]="true"
+                  autocomplete="off"
+                  autocorrect="on"
+                  readonly=""
+                  [(ngModel)]="student.matricule"
+                  [ngModelOptions]="{ standalone: true }"
+                ></ion-input>
+              </div>
+
+              <div class="form-group">
+                <ion-input
+                  label="Full Name"
+                  type="text"
+                  label-placement="floating"
+                  fill="outline"
+                  placeholder="Enter the matricule...."
+                  [clearInput]="true"
+                  autocomplete="off"
+                  autocorrect="on"
+                  readonly=""
+                  [(ngModel)]="student.fullname"
+                  [ngModelOptions]="{ standalone: true }"
+                ></ion-input>
+              </div>
+
+              <div class="form-group">
+                <ion-input
+                  label="Maturity Period"
+                  type="text"
+                  label-placement="floating"
+                  fill="outline"
+                  placeholder="Enter the matricule...."
+                  [clearInput]="true"
+                  autocomplete="off"
+                  autocorrect="on"
+                  readonly=""
+                  [(ngModel)]="student.endPeriod"
+                  [ngModelOptions]="{ standalone: true }"
+                ></ion-input>
+              </div>
+
+              <ion-grid fixed>
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-button expand="block" type="submit" [disabled]="!isValidity">
+                      Admit It <ion-icon name="checkmark-done-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </form>
+          </div>
+
+          <ion-card color="danger" style="padding: 12%; text-align: center !important; font-size: 1rem;" *ngIf="messageBusAccessStatus == 'no'">
+            {{messageBusAccess}}
+          </ion-card>
+
+          <ion-card color="success" style="padding: 12%; text-align: center !important; font-size: 1rem;" *ngIf="messageBusAccessStatus == 'yes'">
+            {{messageBusAccess}}
+          </ion-card>
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+    <div *ngIf="selected === 'scanner'"></div>
   </div>
 </ion-content>

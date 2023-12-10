@@ -59,6 +59,19 @@ ion-header {
           --color-checked: var(--ion-color-primary-contrast);
           --indicator-color: transparent;
           margin-bottom: 2%;
+          padding: 1.5%;
+        }
+      }
+
+      ion-item {
+        border-radius: 10px;
+        border: 1px solid var(--ion-color-medium);
+        --height: 16px;
+        --ion-background-color: transparent;
+
+        ion-icon {
+          font-size: 1.8rem;
+          margin-right: 10px;
         }
       }
     }
@@ -67,18 +80,16 @@ ion-header {
 
 ion-content {
   .container-fluid {
-    padding: 5%;
-    margin-top: 20px;
+    padding: 3%;
 
-    .text-sub-header{
+    .text-sub-header {
       color: var(--ion-color-medium);
-      margin-top: .2rem;
-      font-size: .85rem;
+      margin-top: 0.2rem;
+      font-size: 0.85rem;
       text-align: center;
     }
 
     .form-login {
-
       .form-group {
         margin-top: 10px;
         margin-bottom: 20px;
@@ -88,15 +99,15 @@ ion-content {
         float: right;
       }
 
-      ion-grid{
+      ion-grid {
         padding: 0;
         margin: 0;
 
-        ion-row{
+        ion-row {
           padding: 0;
           margin: 0;
 
-          ion-col{
+          ion-col {
             padding: 0;
             margin: 0;
 
@@ -105,7 +116,7 @@ ion-content {
               font-weight: bold;
               font-size: 1rem;
 
-              ion-icon{
+              ion-icon {
                 margin-left: 5px;
               }
             }
@@ -114,4 +125,42 @@ ion-content {
       }
     }
   }
+
+  .container {
+
+    ion-card{
+      padding: 0%;
+      border: none;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+
+      img{
+        border-radius: 10px;
+        width: 100px;
+      }
+
+      ion-grid{
+        ion-row{
+          ion-col{
+            h4{
+              margin: 0;
+              font-size: .8rem;
+              padding-top: 5px;
+              font-weight: 600;
+                color: var(--ion-color-dark);
+
+              span{
+                color: var(--ion-color-medium);
+                float: inline-end;
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.uppercase-text {
+  text-transform: uppercase;
 }
