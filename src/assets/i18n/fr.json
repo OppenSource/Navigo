@@ -18,6 +18,31 @@
     "submit": "Connexion",
     "footer_text": "Vous n'avez pas de compte ?",
     "footer_link": "S'inscrire"
+  },
+
+  "chauffeur":{
+    "title":{
+      "new" : "Nouveau Chauffeur",
+      "list": "Liste des chauffeurs"
+    },
+    "new" : {
+
+    },
+    "liste":{
+      "search": "Filtrez les informations......",
+      "name": "Noms",
+      "subname": "Surnom(s)",
+      "name": "Téléphone",
+      "name": "CNI",
+      "name": "Adresse",
+      "action_sheet":{
+        "title": "Chauffeur",
+        "delete": "Suppression",
+        "update": "Modification",
+        "confirm": "Coninuer",
+        "cancel": "Annuler",
+      }
+    },
   }
 
 }

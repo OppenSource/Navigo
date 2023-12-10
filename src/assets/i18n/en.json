@@ -19,6 +19,32 @@
     "footer_text": "You don't have an account ?",
     "footer_link": "Register"
   },
+
+
+  "chauffeur":{
+    "title":{
+      "new" : "Nouveau Chauffeur",
+      "list": "Liste des chauffesurs"
+    },
+    "new" : {
+
+    },
+    "liste":{
+      "search": "Filtrez les informations......",
+      "name": "Noms",
+      "subname": "Surnom(s)",
+      "name": "Téléphone",
+      "name": "CNI",
+      "name": "Adresse",
+      "action_sheet":{
+        "title": "Chauffeur",
+        "delete": "Suppression",
+        "update": "Modification",
+        "confirm": "Coninuer",
+        "cancel": "Annuler",
+      }
+    },
+  },
   "home": {
     "hello": "Welcome, back!",
     "search": "Search any thinks.....",
@@ -28,5 +54,64 @@
     "drivers": "Drivers",
     "administration": "Administration",
     "setting": "Settings"
+  },
+
+  "student": {
+    "registration": {
+      "take_a_picture": "TAKE A PICTURE",
+      "matricule": {
+        "label": "",
+        "placeholder": "",
+        "validation": {
+          "required": "",
+          "minlength": "",
+          "maxlength": ""
+        }
+      },
+      "fullname": {
+        "label": "",
+        "placeholder": "",
+        "validation": {
+          "required": "",
+          "minlength": ""
+        }
+      },
+      "cycle": {
+        "label": "",
+        "placeholder": "",
+        "validation": {
+          "required": ""
+        }
+      },
+      "level": {
+        "label": "",
+        "placeholder": "",
+        "validation": {
+          "required": ""
+        }
+      },
+      "email": {
+        "label": "",
+        "placeholder": "",
+        "validation": {
+          "required": "",
+          "pattern": ""
+        }
+      },
+      "phone": {
+        "label": "",
+        "placeholder": "",
+        "validation": {
+          "required": "",
+          "minlength": "",
+          "maxlength": "",
+          "pattern": ""
+        }
+      },
+      "btn_submit": "",
+      "btn_reset": ""
+    },
+    "listing": {},
+    "accessibility": {}
   }
 }

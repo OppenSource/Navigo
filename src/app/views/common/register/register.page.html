@@ -5,11 +5,26 @@
 
     <div class="form-login">
       <form [formGroup]="register" (ngSubmit)="submitForm()">
+
+        <div class="form-group">
+          <ion-input
+            label="Full Name"
+            type="text"
+            label-placement="floating"
+            fill="outline"
+            placeholder="Nanyang Brice"
+            [clearInput]="true"
+            autocomplete="off"
+            autocorrect="on"
+            formControlName="fullname"
+          ></ion-input>
+        </div>
+
         <div class="form-group">
           <ion-input
             label="Email Adress"
             type="email"
-            label-placement="floating"
+            label-placement="floating"n
             fill="outline"
             placeholder="nanyangbrice@gmail.com"
             [clearInput]="true"
@@ -18,6 +33,7 @@
             formControlName="email"
           ></ion-input>
         </div>
+
         <div class="form-group">
           <ion-input
             label="Phone Contact"
@@ -34,6 +50,7 @@
             formControlName="phone"
           ></ion-input>
         </div>
+
         <div class="form-group">
           <ion-input
             label="Full Name"

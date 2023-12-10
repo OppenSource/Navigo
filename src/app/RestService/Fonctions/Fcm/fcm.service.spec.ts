@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DbService } from './db.service';
+import { FcmService } from './fcm.service';
 
-describe('DbService', () => {
-  let service: DbService;
+describe('FcmService', () => {
+  let service: FcmService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DbService);
+    service = TestBed.inject(FcmService);
   });
 
   it('should be created', () => {
