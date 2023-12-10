@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "248183585904",
+    "project_id": "navigo-ca744",
+    "storage_bucket": "navigo-ca744.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248183585904:android:ee901fb2036acbfe3708b5",
+        "android_client_info": {
+          "package_name": "com.Unity.isj.Navigo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRYv7rfV7TDW1OzASsqqoT6UiGFp4xH1Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
