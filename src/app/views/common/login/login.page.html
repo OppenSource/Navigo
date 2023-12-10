@@ -1,19 +1,19 @@
 <ion-content>
   <div class="container-fluid" *ngIf="!connected">
-    <div class="text-header">Hello, welcome back 👋</div>
+    <div class="text-header"> {{ 'login.title' | translate }}</div>
     <div class="text-sub-header">
-      Happy to see you again, please login here.
+      {{ 'login.subtitle' | translate }}
     </div>
 
     <div class="form-login">
       <form [formGroup]="login" (ngSubmit)="submitForm()" novalidate>
         <div class="form-group">
           <ion-input
-            label="Username"
+            label="{{ 'login.username.label' | translate }}"
             type="text"
             label-placement="floating"
             fill="outline"
-            placeholder="Enter your username...."
+            placeholder="{{ 'login.username.placeholder' | translate }}"
             [clearInput]="true"
             autocomplete="off"
             autocorrect="on"
@@ -27,7 +27,7 @@
               *ngIf="this.login.controls?.username.errors?.required"
             >
               <ion-text color="danger"
-                >Désolé mais ce champs est obligatoire.</ion-text
+                >{{ 'login.username.required' | translate }}.</ion-text
               >
             </div>
             <div

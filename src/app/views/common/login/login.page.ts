@@ -26,10 +26,9 @@ export class LoginPage implements OnInit {
     public formBuilder: FormBuilder,
     private toastController: ToastController,
     public navCtrl: NavController,
-    translate: TranslateService
+    private translate: TranslateService,
   ) {
-    translate.setDefaultLang(this.code);
-    translate.use(this.code);
+    this.translate.setDefaultLang('en');
   }
 
   ngOnInit() {
@@ -52,6 +51,7 @@ export class LoginPage implements OnInit {
   async getCodeLanguage() {
     const info = await Device.getLanguageCode();
     this.code = info.value;
+    this.translate.use(this.code);
     console.log(this.code);
   }
 
@@ -105,8 +105,10 @@ export class LoginPage implements OnInit {
         this.connected = status.connected;
         if (status.connected == false) {
           this.LosingConnetion();
+          this.connected = false;
         } else {
           this.GreatConnetion();
+          this.connected = true;
         }
       }
     );
