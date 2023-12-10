@@ -1,19 +1,21 @@
+import { DriverPageRoutingModule } from './driver-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DriverPageRoutingModule } from './driver-routing.module';
-
-import { DriverPage } from './driver.page';
+import { DriverPage } from './driver.page'
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DriverPageRoutingModule
+    DriverPageRoutingModule,
+    ReactiveFormsModule,
+    TranslateModule.forChild()
   ],
   declarations: [DriverPage]
 })
