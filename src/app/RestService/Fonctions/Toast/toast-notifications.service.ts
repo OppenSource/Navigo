@@ -58,12 +58,12 @@ export class ToastNotificationsService {
 
   /** Affiche un toast pour indiquer que la connexion Internet est perdue. */
   async showInternetLost() {
-    this.showToast('Connexion internet perdue.', 'danger', 'bottom', 'construct-outline', 5000);
+    this.showToast('Connexion internet perdue.', 'dark', 'bottom', 'construct-outline', 5000);
   }
 
   /** Affiche un toast pour indiquer qu'une ressource est indisponible. */
   async showResourceUnavailable() {
-    this.showToast('Désolé mais cette ressource est indisponible.', 'danger', 'bottom', 'dark-outline', 5000);
+    this.showToast('Désolé mais cette ressource est indisponible.', 'dark', 'bottom', 'cloud-offline-outline', 5000);
   }
 
   /** Affiche un toast pour indiquer que l'upload de la photo a réussi. */
@@ -85,7 +85,7 @@ export class ToastNotificationsService {
   async showRegistrationExistenceError() {
     this.showToast(
       'Désolé mais il semblerait que vous essayez de dupliquer une ressource déjà existante.',
-      'danger',
+      'dark',
       'bottom',
       'dark-outline',
       3500
