@@ -427,7 +427,7 @@
 
           <div class="form-group">
             <span *ngIf="!isConnected">
-              <ion-thumbnail slot="start" style="width: 100%; border-radius: .25rem">
+              <ion-thumbnail slot="start" style="width: 100%; border-radius: .25rem;">
                 <ion-skeleton-text [animated]="true"></ion-skeleton-text>
               </ion-thumbnail>
             </span>
@@ -627,6 +627,13 @@
             <img *ngIf="image" [src]="image" width="100%" />
           </div>
         </form>
+
+        <ion-item *ngIf="loadingData">
+          <ion-spinner name="bubbles" slot="start"></ion-spinner>
+          <ion-label>
+            Tantative de connexion à internet...
+          </ion-label>
+        </ion-item>
       </div>
     </div>
   </div>
