@@ -25,7 +25,9 @@ export class BusPage implements OnInit , OnDestroy {
   readyToUpdate: any;
   data: any[] = [];
   list: any[] = [];
+  loadingData = true;
   isConnected: boolean | any;
+  items: any[] = Array.from({ length: 4 });
   private internetStatusSubscription: Subscription | any;
 
   constructor(
@@ -94,13 +96,6 @@ export class BusPage implements OnInit , OnDestroy {
     }
   }
 
-  async checkInternet() {
-    try {
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   async addData() {
     try {
       const object = {
@@ -142,6 +137,7 @@ export class BusPage implements OnInit , OnDestroy {
     }
   }
 
+
   async takePicture() {
     try {
       const result = await this.upload.readyToUploadFile();
@@ -156,6 +152,7 @@ export class BusPage implements OnInit , OnDestroy {
       );
     }
   }
+  
 
   async actionSheetData(object: any) {
     try {
@@ -175,7 +172,6 @@ export class BusPage implements OnInit , OnDestroy {
           this.isModalOpen = true;
         }
       }
-
       console.log(result);
     } catch (error) {
       console.error("Erreur lors de l'appel à actionAlert :", error);

@@ -3,12 +3,12 @@
     <ion-grid fixed>
       <ion-row>
         <ion-back-button></ion-back-button>
-        <ion-title style="text-align: left">School Bus</ion-title>
+        <ion-title style="text-align: left">Bus</ion-title>
         <div class="img-text-header">
-          <p>
-            <span class="salutation">Welcome back, </span>
-          </p>
           <span class="journee"> Brice Nanyang </span>
+          <p>
+            <span class="salutation">Etudiant</span>
+          </p>
         </div>
         <div class="img-header">
           <ion-menu-button>
@@ -19,20 +19,20 @@
 
       <ion-segment [(ngModel)]="selected" mode="ios" class="ion-no-border">
         <ion-segment-button value="add">
-          New bus <ion-icon name="add-circle-outline"></ion-icon>
+          Nouveau Bus
         </ion-segment-button>
         <ion-segment-button value="list">
-          Bus list <ion-icon name="list-circle-outline"></ion-icon>
+          Liste des Bus
         </ion-segment-button>
       </ion-segment>
 
       <ion-item class="item-search" *ngIf="selected === 'list'">
         <ion-icon name="search-outline"></ion-icon>
         <ion-input
-          type="text"
-          placeholder="Filter the information des bus....."
-          (ionInput)="handleInput($event)"
-          [clearInput]="true"
+        type="text"
+        placeholder="Filtrez les informations des bus....."
+        (ionInput)="handleInput($event)"
+        [clearInput]="true"
         ></ion-input>
       </ion-item>
     </ion-grid>
@@ -42,449 +42,538 @@
 <ion-content>
   <div *ngIf="selected === 'list'">
     <div class="container">
+
+      <ion-list lines="none" *ngIf="!isConnected">
+        <ng-container>
+          <!-- Display ion-spinner and loading message -->
+          <ion-item *ngIf="loadingData">
+            <ion-spinner name="bubbles" slot="start"></ion-spinner>
+            <ion-label>
+              Veillez vous connecter à internet...
+            </ion-label>
+          </ion-item>
+
+          <ion-item *ngFor="let item of items; let i = index">
+            <ion-thumbnail slot="start" style="width: 30%; height: 100px;">
+              <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text [animated]="true" style="width: 60%;"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text [animated]="true" style="width: 30%;"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text [animated]="true" style="width: 60%;"></ion-skeleton-text>
+              </p>
+              <h3>
+                <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+              </h3>
+            </ion-label>
+          </ion-item>
+        </ng-container>
+      </ion-list>
+
       <ion-card *ngFor="let item of data" (click)="actionSheetData(item)">
         <ion-grid fixed>
           <ion-row>
             <ion-col size="4">
               <img
-                [src]="item.picture"
-                alt=""
-                srcset=""
-                width="100%"
-                height="100px"
+              [src]="item.picture"
+              alt=""
+              srcset=""
+              width="100%"
+              height="100px"
               />
             </ion-col>
             <ion-col size="8">
               <h4>
                 <span> {{item.registration}} </span>
-                Registration :
+                Immatriculation :
               </h4>
               <h4>
                 <span>{{item.driver}} </span>
-                Driver :
+                Chauffeur :
               </h4>
               <h4>
                 <span>{{item.brand}} </span>
-                Brand :
+                Marque :
               </h4>
               <h4>
                 <span>{{item.type}} </span>
-                Vehicule Type :
+                Véhicule Type :
               </h4>
               <h4>
                 <span
-                  style="width: 25px; height: 10px; border-radius: 10px; background-color: {{item.color}}"
+                style="width: 25px; height: 10px; border-radius: 10px; background-color: {{item.color}}"
                 >
-                </span>
-                Color :
-              </h4>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card>
-    </div>
-
-    <ion-modal
-      [isOpen]="isModalOpen"
-      [initialBreakpoint]="0.98"
-      [breakpoints]="[0, 0, 0, 0]"
-    >
-      <ng-template>
-        <ion-content>
-          <div class="container-fluid">
-            <div class="form-login">
-              <form [formGroup]="save" (ngSubmit)="updateData()" novalidate>
-                <div class="form-group">
-                  <ion-button expand="block" (click)="takePicture()">
-                    Take A New Picture &nbsp;
-                    <ion-icon name="camera-outline"></ion-icon>
-                  </ion-button>
-                </div>
-
-                <div class="form-group">
-                  <ion-input
-                    label="Registration"
-                    type="text"
-                    label-placement="floating"
-                    fill="outline"
-                    placeholder="Enter the registration...."
-                    [clearInput]="true"
-                    autocomplete="off"
-                    autocorrect="on"
-                    formControlName="registration"
-                    [(ngModel)]="readyToUpdate.registration"
-                    readonly
-                  ></ion-input>
-                  <span
-                    *ngIf="this.save.controls?.registration.touched && this.save.controls?.registration.invalid"
-                  >
-                    <div
-                      class="ion-padding"
-                      *ngIf="this.save.controls?.registration.errors?.required"
-                    >
-                      <ion-text color="danger"
-                        >Désolé mais ce champs est obligatoire.</ion-text
-                      >
-                    </div>
-                    <div
-                      class="ion-padding"
-                      color="danger"
-                      *ngIf="this.save.controls?.registration.errors?.minlength"
-                    >
-                      <ion-text color="danger"
-                        >Renseignez au moins 06 caractères.</ion-text
-                      >
-                    </div>
-                    <div
-                      class="ion-padding"
-                      color="danger"
-                      *ngIf="this.save.controls?.registration.errors?.maxlength"
-                    >
-                      <ion-text color="danger"
-                        >Renseignez au plus 20 caractères.</ion-text
-                      >
-                    </div>
-                  </span>
-                </div>
-
-                <div class="form-group">
-                  <ion-input
-                    label="Color"
-                    type="color"
-                    label-placement="floating"
-                    fill="outline"
-                    placeholder="Enter your password...."
-                    [clearInput]="true"
-                    autocomplete="off"
-                    autocorrect="on"
-                    formControlName="color"
-                    [(ngModel)]="readyToUpdate.color"
-                  ></ion-input>
-                  <span
-                    *ngIf="this.save.controls?.color.touched && this.save.controls?.color.invalid"
-                  >
-                    <div
-                      class="ion-padding"
-                      *ngIf="this.save.controls?.color.errors?.required"
-                    >
-                      <ion-text color="danger"
-                        >Désolé mais ce champs est obligatoire.</ion-text
-                      >
-                    </div>
-                  </span>
-                </div>
-
-                <div class="form-group">
-                  <ion-input
-                    label="Brand"
-                    type="text"
-                    label-placement="floating"
-                    fill="outline"
-                    placeholder="Enter the brand...."
-                    [clearInput]="true"
-                    autocomplete="off"
-                    autocorrect="on"
-                    formControlName="brand"
-                    [(ngModel)]="readyToUpdate.brand"
-                  ></ion-input>
-                  <span
-                    *ngIf="this.save.controls?.brand.touched && this.save.controls?.brand.invalid"
-                  >
-                    <div
-                      class="ion-padding"
-                      *ngIf="this.save.controls?.brand.errors?.required"
-                    >
-                      <ion-text color="danger"
-                        >Désolé mais ce champs est obligatoire.</ion-text
-                      >
-                    </div>
-                    <div
-                      class="ion-padding"
-                      color="danger"
-                      *ngIf="this.save.controls?.brand.errors?.minlength"
-                    >
-                      <ion-text color="danger"
-                        >Renseignez au moins 03 caractères.</ion-text
-                      >
-                    </div>
-                  </span>
-                </div>
-
-                <div class="form-group">
-                  <ion-select
-                    label="Vehicle type"
-                    label-placement="floating"
-                    fill="outline"
-                    multiple="false"
-                    placeholder="ex : Coaster"
-                    formControlName="type"
-                    [(ngModel)]="readyToUpdate.type"
-                  >
-                    <ion-select-option value="car">Car</ion-select-option>
-                    <ion-select-option value="coaster"
-                      >Coaster</ion-select-option
-                    >
-                    <ion-select-option value="bus">Bus</ion-select-option>
-                  </ion-select>
-                  <span
-                    *ngIf="this.save.controls?.type.touched && this.save.controls?.type.invalid"
-                  >
-                    <div
-                      class="ion-padding"
-                      *ngIf="this.save.controls?.type.errors?.required"
-                    >
-                      <ion-text color="danger"
-                        >Désolé mais ce champs est obligatoire.</ion-text
-                      >
-                    </div>
-                  </span>
-                </div>
-
-                <div class="form-group">
-                  <ion-select
-                    label="Driver"
-                    label-placement="floating"
-                    fill="outline"
-                    multiple="false"
-                    placeholder="ex : Kaiboy"
-                    formControlName="driver"
-                    [(ngModel)]="readyToUpdate.driver"
-                  >
-                    <ion-select-option value="1">Kaiboy</ion-select-option>
-                    <ion-select-option value="2">Grand Prof</ion-select-option>
-                  </ion-select>
-                  <span
-                    *ngIf="this.save.controls?.driver.touched && this.save.controls?.driver.invalid"
-                  >
-                    <div
-                      class="ion-padding"
-                      *ngIf="this.save.controls?.driver.errors?.required"
-                    >
-                      <ion-text color="danger"
-                        >Désolé mais ce champs est obligatoire.</ion-text
-                      >
-                    </div>
-                  </span>
-                </div>
-
-                <ion-grid fixed>
-                  <ion-row>
-                    <ion-col size="6">
-                      <ion-button expand="block" type="reset" color="danger">
-                        Cancel <ion-icon name="close-circle-outline"></ion-icon>
-                      </ion-button>
-                    </ion-col>
-                    <ion-col size="6">
-                      <ion-button
-                        expand="block"
-                        type="submit"
-                        [disabled]="!image"
-                      >
-                        Update <ion-icon name="save-outline"></ion-icon>
-                      </ion-button>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-                <!-- [disabled]="!isReady" -->
-                <div class="form-group">
-                  <img *ngIf="image" [src]="image" width="100%" />
-                </div>
-              </form>
-            </div>
-          </div>
-        </ion-content>
-      </ng-template>
-    </ion-modal>
+              </span>
+              Couleur :
+            </h4>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
   </div>
 
-  <div class="container-fluid">
-    <div *ngIf="selected === 'add'">
-      <div class="form-login">
-        <form [formGroup]="save" (ngSubmit)="addData()" novalidate>
-          <div class="form-group">
-            <ion-button expand="block" (click)="takePicture()">
-              Take A Picture &nbsp; <ion-icon name="camera-outline"></ion-icon>
-            </ion-button>
-          </div>
+  <ion-modal
+  [isOpen]="isModalOpen"
+  [initialBreakpoint]="0.98"
+  [breakpoints]="[0, 0, 0, 0]"
+  >
+  <ng-template>
+    <ion-content>
+      <div class="container-fluid">
+        <div class="form-login">
+          <form [formGroup]="save" (ngSubmit)="updateData()" novalidate>
+            <div class="form-group">
+              <ion-button expand="block" (click)="takePicture()">
+                Sélectionnez une photo &nbsp;
+                <ion-icon name="camera-outline"></ion-icon>
+              </ion-button>
+            </div>
 
-          <div class="form-group">
-            <ion-input
-              label="Registration"
+            <div class="form-group">
+              <ion-input
+              label="Immatriculation"
               type="text"
               label-placement="floating"
               fill="outline"
-              placeholder="Enter the registration...."
+              placeholder="Entrez le numéro d'immatriculation...."
               [clearInput]="true"
               autocomplete="off"
               autocorrect="on"
               formControlName="registration"
-            ></ion-input>
-            <span
+              [(ngModel)]="readyToUpdate.registration"
+              readonly
+              ></ion-input>
+              <span
               *ngIf="this.save.controls?.registration.touched && this.save.controls?.registration.invalid"
+              >
+              <div
+              class="ion-padding"
+              *ngIf="this.save.controls?.registration.errors?.required"
+              >
+              <ion-text color="danger"
+              >Désolé mais ce champs est obligatoire.</ion-text
+              >
+            </div>
+            <div
+            class="ion-padding"
+            color="danger"
+            *ngIf="this.save.controls?.registration.errors?.minlength"
             >
-              <div
-                class="ion-padding"
-                *ngIf="this.save.controls?.registration.errors?.required"
-              >
-                <ion-text color="danger"
-                  >Désolé mais ce champs est obligatoire.</ion-text
-                >
-              </div>
-              <div
-                class="ion-padding"
-                color="danger"
-                *ngIf="this.save.controls?.registration.errors?.minlength"
-              >
-                <ion-text color="danger"
-                  >Renseignez au moins 06 caractères.</ion-text
-                >
-              </div>
-              <div
-                class="ion-padding"
-                color="danger"
-                *ngIf="this.save.controls?.registration.errors?.maxlength"
-              >
-                <ion-text color="danger"
-                  >Renseignez au plus 20 caractères.</ion-text
-                >
-              </div>
-            </span>
+            <ion-text color="danger"
+            >Renseignez au moins 06 caractères.</ion-text
+            >
           </div>
-
-          <div class="form-group">
-            <ion-input
-              label="Color"
-              type="color"
-              label-placement="floating"
-              fill="outline"
-              placeholder="Enter your password...."
-              [clearInput]="true"
-              autocomplete="off"
-              autocorrect="on"
-              formControlName="color"
-            ></ion-input>
-            <span
-              *ngIf="this.save.controls?.color.touched && this.save.controls?.color.invalid"
-            >
-              <div
-                class="ion-padding"
-                *ngIf="this.save.controls?.color.errors?.required"
-              >
-                <ion-text color="danger"
-                  >Désolé mais ce champs est obligatoire.</ion-text
-                >
-              </div>
-            </span>
-          </div>
-
-          <div class="form-group">
-            <ion-input
-              label="Brand"
-              type="text"
-              label-placement="floating"
-              fill="outline"
-              placeholder="Enter the brand...."
-              [clearInput]="true"
-              autocomplete="off"
-              autocorrect="on"
-              formControlName="brand"
-            ></ion-input>
-            <span
-              *ngIf="this.save.controls?.brand.touched && this.save.controls?.brand.invalid"
-            >
-              <div
-                class="ion-padding"
-                *ngIf="this.save.controls?.brand.errors?.required"
-              >
-                <ion-text color="danger"
-                  >Désolé mais ce champs est obligatoire.</ion-text
-                >
-              </div>
-              <div
-                class="ion-padding"
-                color="danger"
-                *ngIf="this.save.controls?.brand.errors?.minlength"
-              >
-                <ion-text color="danger"
-                  >Renseignez au moins 03 caractères.</ion-text
-                >
-              </div>
-            </span>
-          </div>
-
-          <div class="form-group">
-            <ion-select
-              label="Vehicle type"
-              label-placement="floating"
-              fill="outline"
-              multiple="false"
-              placeholder="ex : Coaster"
-              formControlName="type"
-            >
-              <ion-select-option value="car">Car</ion-select-option>
-              <ion-select-option value="coaster">Coaster</ion-select-option>
-              <ion-select-option value="bus">Bus</ion-select-option>
-            </ion-select>
-            <span
-              *ngIf="this.save.controls?.type.touched && this.save.controls?.type.invalid"
-            >
-              <div
-                class="ion-padding"
-                *ngIf="this.save.controls?.type.errors?.required"
-              >
-                <ion-text color="danger"
-                  >Désolé mais ce champs est obligatoire.</ion-text
-                >
-              </div>
-            </span>
-          </div>
-
-          <div class="form-group">
-            <ion-select
-              label="Driver"
-              label-placement="floating"
-              fill="outline"
-              multiple="false"
-              placeholder="ex : Kaiboy"
-              formControlName="driver"
-            >
-              <ion-select-option value="1">Kaiboy</ion-select-option>
-              <ion-select-option value="2">Grand Prof</ion-select-option>
-            </ion-select>
-            <span
-              *ngIf="this.save.controls?.driver.touched && this.save.controls?.driver.invalid"
-            >
-              <div
-                class="ion-padding"
-                *ngIf="this.save.controls?.driver.errors?.required"
-              >
-                <ion-text color="danger"
-                  >Désolé mais ce champs est obligatoire.</ion-text
-                >
-              </div>
-            </span>
-          </div>
-
-          <ion-grid fixed>
-            <ion-row>
-              <ion-col size="6">
-                <ion-button expand="block" type="reset" color="danger">
-                  Cancel <ion-icon name="close-circle-outline"></ion-icon>
-                </ion-button>
-              </ion-col>
-              <ion-col size="6">
-                <ion-button expand="block" type="submit" [disabled]="!isReady">
-                  Save <ion-icon name="save-outline"></ion-icon>
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-          <!-- [disabled]="!really" -->
-          <div class="form-group">
-            <img *ngIf="image" [src]="image" width="100%" />
-          </div>
-        </form>
-      </div>
+          <div
+          class="ion-padding"
+          color="danger"
+          *ngIf="this.save.controls?.registration.errors?.maxlength"
+          >
+          <ion-text color="danger"
+          >Renseignez au plus 20 caractères.</ion-text
+          >
+        </div>
+      </span>
     </div>
-  </div>
+
+    <div class="form-group">
+      <ion-input
+      label="Couleur"
+      type="color"
+      label-placement="floating"
+      fill="outline"
+      [clearInput]="true"
+      autocomplete="off"
+      autocorrect="on"
+      formControlName="color"
+      [(ngModel)]="readyToUpdate.color"
+      ></ion-input>
+      <span
+      *ngIf="this.save.controls?.color.touched && this.save.controls?.color.invalid"
+      >
+      <div
+      class="ion-padding"
+      *ngIf="this.save.controls?.color.errors?.required"
+      >
+      <ion-text color="danger"
+      >Désolé mais ce champs est obligatoire.</ion-text
+      >
+    </div>
+  </span>
+</div>
+
+<div class="form-group">
+  <ion-input
+  label="Marque"
+  type="text"
+  label-placement="floating"
+  fill="outline"
+  placeholder="Entrez la marque deu véhicule...."
+  [clearInput]="true"
+  autocomplete="off"
+  autocorrect="on"
+  formControlName="brand"
+  [(ngModel)]="readyToUpdate.brand"
+  ></ion-input>
+  <span
+  *ngIf="this.save.controls?.brand.touched && this.save.controls?.brand.invalid"
+  >
+  <div
+  class="ion-padding"
+  *ngIf="this.save.controls?.brand.errors?.required"
+  >
+  <ion-text color="danger"
+  >Désolé mais ce champs est obligatoire.</ion-text
+  >
+</div>
+<div
+class="ion-padding"
+color="danger"
+*ngIf="this.save.controls?.brand.errors?.minlength"
+>
+<ion-text color="danger"
+>Renseignez au moins 03 caractères.</ion-text
+>
+</div>
+</span>
+</div>
+
+<div class="form-group">
+  <ion-select
+  label="Catégorie Véhicule"
+  label-placement="floating"
+  fill="outline"
+  multiple="false"
+  placeholder="ex : Coaster"
+  formControlName="type"
+  [(ngModel)]="readyToUpdate.type"
+  >
+  <ion-select-option value="car">Car</ion-select-option>
+  <ion-select-option value="coaster"
+  >Coaster</ion-select-option
+  >
+  <ion-select-option value="bus">Bus</ion-select-option>
+</ion-select>
+<span
+*ngIf="this.save.controls?.type.touched && this.save.controls?.type.invalid"
+>
+<div
+class="ion-padding"
+*ngIf="this.save.controls?.type.errors?.required"
+>
+<ion-text color="danger"
+>Désolé mais ce champs est obligatoire.</ion-text
+>
+</div>
+</span>
+</div>
+
+<div class="form-group">
+  <ion-select
+  label="Chauffeur"
+  label-placement="floating"
+  fill="outline"
+  multiple="false"
+  placeholder="ex : Kaiboy"
+  formControlName="driver"
+  [(ngModel)]="readyToUpdate.driver"
+  >
+  <ion-select-option value="1">Kaiboy</ion-select-option>
+  <ion-select-option value="2">Grand Prof</ion-select-option>
+</ion-select>
+<span
+*ngIf="this.save.controls?.driver.touched && this.save.controls?.driver.invalid"
+>
+<div
+class="ion-padding"
+*ngIf="this.save.controls?.driver.errors?.required"
+>
+<ion-text color="danger"
+>Désolé mais ce champs est obligatoire.</ion-text
+>
+</div>
+</span>
+</div>
+
+<ion-grid fixed>
+  <ion-row>
+    <ion-col size="6">
+      <ion-button expand="block" type="reset" color="danger">
+        Annuler <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="!image"
+      >
+      Modifier <ion-icon name="save-outline"></ion-icon>
+    </ion-button>
+  </ion-col>
+</ion-row>
+</ion-grid>
+<!-- [disabled]="!isReady" -->
+<div class="form-group">
+  <img *ngIf="image" [src]="image" width="100%" />
+</div>
+</form>
+</div>
+</div>
+</ion-content>
+</ng-template>
+</ion-modal>
+</div>
+
+<div class="container-fluid">
+  <div *ngIf="selected === 'add'">
+    <div class="form-login">
+      <form [formGroup]="save" (ngSubmit)="addData()" novalidate>
+        <div class="form-group">
+          <ion-button expand="block" (click)="takePicture()" *ngIf="isConnected">
+            Sélectionnez une photo &nbsp; <ion-icon name="camera-outline"></ion-icon>
+          </ion-button>
+
+          <span *ngIf="!isConnected">
+            <ion-thumbnail slot="start" style="width: 100%; border-radius: .25rem; margin-bottom: 45px; height: 40px;">
+              <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+            </ion-thumbnail>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <span *ngIf="!isConnected">
+            <ion-thumbnail slot="start" style="width: 100%; border-radius: .25rem">
+              <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+            </ion-thumbnail>
+          </span>
+
+          <ion-input
+          label="Immatriculation"
+          type="text"
+          label-placement="floating"
+          fill="outline"
+          placeholder="Entrez le numéro d'immatriculation..."
+          [clearInput]="true"
+          autocomplete="off"
+          autocorrect="on"
+          *ngIf="isConnected"
+          formControlName="registration"
+          ></ion-input>
+          <span
+          *ngIf="this.save.controls?.registration.touched && this.save.controls?.registration.invalid"
+          >
+          <div
+          class="ion-padding"
+          *ngIf="this.save.controls?.registration.errors?.required"
+          >
+          <ion-text color="danger"
+          >Désolé mais ce champs est obligatoire.</ion-text
+          >
+        </div>
+        <div
+        class="ion-padding"
+        color="danger"
+        *ngIf="this.save.controls?.registration.errors?.minlength"
+        >
+        <ion-text color="danger"
+        >Renseignez au moins 06 caractères.</ion-text
+        >
+      </div>
+      <div
+      class="ion-padding"
+      color="danger"
+      *ngIf="this.save.controls?.registration.errors?.maxlength"
+      >
+      <ion-text color="danger"
+      >Renseignez au plus 20 caractères.</ion-text
+      >
+    </div>
+  </span>
+</div>
+
+<div class="form-group">
+  <span *ngIf="!isConnected">
+    <ion-thumbnail slot="start" style="width: 100%; border-radius: .25rem">
+      <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+    </ion-thumbnail>
+  </span>
+  <ion-input
+  label="Couleur"
+  type="color"
+  label-placement="floating"
+  fill="outline"
+  [clearInput]="true"
+  autocomplete="off"
+  autocorrect="on"
+  *ngIf="isConnected"
+  formControlName="color"
+  ></ion-input>
+  <span
+  *ngIf="this.save.controls?.color.touched && this.save.controls?.color.invalid"
+  >
+  <div
+  class="ion-padding"
+  *ngIf="this.save.controls?.color.errors?.required"
+  >
+  <ion-text color="danger"
+  >Désolé mais ce champs est obligatoire.</ion-text
+  >
+</div>
+</span>
+</div>
+
+<div class="form-group">
+  <span *ngIf="!isConnected">
+    <ion-thumbnail slot="start" style="width: 100%; border-radius: .25rem">
+      <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+    </ion-thumbnail>
+  </span>
+  <ion-input
+  label="Marque"
+  type="text"
+  label-placement="floating"
+  fill="outline"
+  placeholder="Entrez la marque du véhicule...."
+  [clearInput]="true"
+  autocomplete="off"
+  *ngIf="isConnected"
+  autocorrect="on"
+  formControlName="brand"
+  ></ion-input>
+  <span
+  *ngIf="this.save.controls?.brand.touched && this.save.controls?.brand.invalid"
+  >
+  <div
+  class="ion-padding"
+  *ngIf="this.save.controls?.brand.errors?.required"
+  >
+  <ion-text color="danger"
+  >Désolé mais ce champs est obligatoire.</ion-text
+  >
+</div>
+<div
+class="ion-padding"
+color="danger"
+*ngIf="this.save.controls?.brand.errors?.minlength"
+>
+<ion-text color="danger"
+>Renseignez au moins 03 caractères.</ion-text
+>
+</div>
+</span>
+</div>
+
+<div class="form-group">
+  <span *ngIf="!isConnected">
+    <ion-thumbnail slot="start" style="width: 100%; border-radius: .25rem">
+      <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+    </ion-thumbnail>
+  </span>
+  <ion-select
+  label="Catégorie Véhicule"
+  label-placement="floating"
+  fill="outline"
+  multiple="false"
+  placeholder="ex : Coaster"
+  *ngIf="isConnected"
+  formControlName="type"
+  >
+  <ion-select-option value="car">Car</ion-select-option>
+  <ion-select-option value="coaster">Coaster</ion-select-option>
+  <ion-select-option value="bus">Bus</ion-select-option>
+</ion-select>
+<span
+*ngIf="this.save.controls?.type.touched && this.save.controls?.type.invalid"
+>
+<div
+class="ion-padding"
+*ngIf="this.save.controls?.type.errors?.required"
+>
+<ion-text color="danger"
+>Désolé mais ce champs est obligatoire.</ion-text
+>
+</div>
+</span>
+</div>
+
+<div class="form-group">
+  <span *ngIf="!isConnected">
+    <ion-thumbnail slot="start" style="width: 100%; border-radius: .25rem">
+      <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+    </ion-thumbnail>
+  </span>
+  <ion-select
+  label="Chauffeur"
+  label-placement="floating"
+  fill="outline"
+  multiple="false"
+  placeholder="ex : Kaiboy"
+  formControlName="driver"
+  *ngIf="isConnected"
+  >
+  <ion-select-option value="1">Kaiboy</ion-select-option>
+  <ion-select-option value="2">Grand Prof</ion-select-option>
+</ion-select>
+<span
+*ngIf="this.save.controls?.driver.touched && this.save.controls?.driver.invalid"
+>
+<div
+class="ion-padding"
+*ngIf="this.save.controls?.driver.errors?.required"
+>
+<ion-text color="danger"
+>Désolé mais ce champs est obligatoire.</ion-text
+>
+</div>
+</span>
+</div>
+
+
+
+<ion-grid fixed>
+  <ion-row>
+    <ion-col size="6">
+      <span *ngIf="!isConnected">
+        <ion-thumbnail slot="start" style="width: 95%; border-radius: .25rem; margin-bottom: 45px; height: 40px;">
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-thumbnail>
+      </span>
+      <ion-button *ngIf="isConnected" expand="block" type="reset" color="danger">
+        Annuler <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <span *ngIf="!isConnected">
+        <ion-thumbnail slot="start" style="width: 95%; margin-left: 5%; border-radius: .25rem; margin-bottom: 45px; height: 40px;">
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-thumbnail>
+      </span>
+      <ion-button *ngIf="isConnected" expand="block" type="submit" [disabled]="!isReady">
+        Enregistrer <ion-icon name="save-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<!-- [disabled]="!really" -->
+<div class="form-group">
+  <img *ngIf="image" [src]="image" width="100%" />
+</div>
+</form>
+<ion-item *ngIf="loadingData">
+  <ion-spinner name="bubbles" slot="start"></ion-spinner>
+  <ion-label>
+    Tantative de connexion à internet...
+  </ion-label>
+</ion-item>
+</div>
+</div>
+</div>
 </ion-content>
