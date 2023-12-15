@@ -66,7 +66,8 @@
         <form [formGroup]="add" (ngSubmit)="save()" novalidate>
           <div class="form-group">
             <ion-button expand="block" (click)="takePicture()">
-              Sélectionnez une photo &nbsp; <ion-icon name="camera-outline"></ion-icon>
+              Sélectionnez une photo &nbsp;
+              <ion-icon name="camera-outline"></ion-icon>
             </ion-button>
           </div>
 
@@ -279,7 +280,7 @@
                 *ngIf="this.add.controls?.matricule.errors?.pattern"
               >
                 <ion-text color="danger"
-                  >Le numéro doit commencer par << 6 >>.</ion-text
+                  >Le numéro doit commencer par << 6>>.</ion-text
                 >
               </div>
             </span>
@@ -309,47 +310,107 @@
 
     <div *ngIf="selected === 'list'">
       <div class="container">
-        <ion-card *ngFor="let item of data" (click)="actionsAboutStudent(item)">
-          <ion-grid fixed>
-            <ion-row>
-              <ion-col size="4">
-                <img
-                  [src]="item.picture"
-                  alt=""
-                  srcset=""
-                  width="100%"
-                  height="123px"
-                />
-              </ion-col>
-              <ion-col size="8">
-                <h4>
-                  <span> {{item.matricule}} </span>
-                  Matricule :
-                </h4>
-                <h4>
-                  <span>{{item.fullname}} </span>
-                  Fullname :
-                </h4>
-                <h4>
-                  <span>{{item.cycle}} </span>
-                  Cycle :
-                </h4>
-                <h4>
-                  <span>{{item.level}} </span>
-                  Level :
-                </h4>
-                <h4>
-                  <span>{{item.phone}} </span>
-                  Phone :
-                </h4>
-                <h4>
-                  <span>{{ maskEmail(item.email) }}</span>
-                  email :
-                </h4>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card>
+        <span *ngIf="isConnected">
+          <ion-card
+            *ngFor="let item of data"
+            (click)="actionsAboutStudent(item)"
+          >
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="4">
+                  <img
+                    [src]="item.picture"
+                    alt=""
+                    srcset=""
+                    width="100%"
+                    height="123px"
+                  />
+                </ion-col>
+                <ion-col size="8">
+                  <h4>
+                    <span> {{item.matricule}} </span>
+                    Matricule :
+                  </h4>
+                  <h4>
+                    <span>{{ truncateAndEllipsis(item.fullname) }} </span>
+                    Noms :
+                  </h4>
+                  <h4>
+                    <span>{{item.cycle}} </span>
+                    Cycle :
+                  </h4>
+                  <h4>
+                    <span>{{item.level}} </span>
+                    Niveau :
+                  </h4>
+                  <h4>
+                    <span>{{item.phone}} </span>
+                    Contact :
+                  </h4>
+                  <h4>
+                    <span>{{ maskEmail(item.email) }}</span>
+                    Email :
+                  </h4>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+
+          <span *ngIf="data.length < 1">
+            <img src="assets/avatars/no-data.png" alt="No data" />
+            <div style="text-align: center !important">
+              Aucune donnée disponible
+            </div>
+          </span>
+        </span>
+
+        <ion-list lines="none" *ngIf="!isConnected">
+          <ng-container>
+            <!-- Display ion-spinner and loading message -->
+            <ion-item *ngIf="loadingData">
+              <ion-spinner name="bubbles" slot="start"></ion-spinner>
+              <ion-label> Veillez vous connecter à internet... </ion-label>
+            </ion-item>
+
+            <ion-item *ngFor="let item of items; let i = index">
+              <ion-thumbnail slot="start" style="width: 30%; height: 100px">
+                <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+              </ion-thumbnail>
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 80%"
+                  ></ion-skeleton-text>
+                </h3>
+                <p>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 60%"
+                  ></ion-skeleton-text>
+                </p>
+                <p>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 30%"
+                  ></ion-skeleton-text>
+                </p>
+                <p>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 60%"
+                  ></ion-skeleton-text>
+                </p>
+                <h3>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 80%"
+                  ></ion-skeleton-text>
+                </h3>
+              </ion-label>
+            </ion-item>
+          </ng-container>
+        </ion-list>
       </div>
 
       <ion-modal
@@ -364,7 +425,7 @@
                 <form [formGroup]="add" (ngSubmit)="updateStudent()" novalidate>
                   <div class="form-group">
                     <ion-button expand="block" (click)="takePicture()">
-                      Take A Picture &nbsp;
+                      Sélectionnez une photo &nbsp;
                       <ion-icon name="camera-outline"></ion-icon>
                     </ion-button>
                   </div>
@@ -417,11 +478,11 @@
 
                   <div class="form-group">
                     <ion-input
-                      label="Full Name"
+                      label="Noms & Prénoms"
                       type="text"
                       label-placement="floating"
                       fill="outline"
-                      placeholder="Entrez le fullname...."
+                      placeholder="Entrez le nom et le prénom...."
                       [clearInput]="true"
                       autocomplete="off"
                       autocorrect="on"
@@ -463,10 +524,8 @@
                     >
                       <ion-select-option>Master</ion-select-option>
                       <ion-select-option>Ingénieur</ion-select-option>
-                      <ion-select-option>Licence Management</ion-select-option>
-                      <ion-select-option
-                        >Licence Professionnelle</ion-select-option
-                      >
+                      <ion-select-option>Management</ion-select-option>
+                      <ion-select-option>Licence Pro</ion-select-option>
                     </ion-select>
                     <span
                       *ngIf="this.add.controls?.cycle.touched && this.add.controls?.cycle.invalid"
@@ -484,7 +543,7 @@
 
                   <div class="form-group">
                     <ion-select
-                      label="Level"
+                      label="Niveau Etude"
                       label-placement="floating"
                       fill="outline"
                       multiple="false"
@@ -550,7 +609,7 @@
 
                   <div class="form-group">
                     <ion-input
-                      label="Phone"
+                      label="Téléphone"
                       type="text"
                       label-placement="floating"
                       fill="outline"
@@ -587,7 +646,7 @@
                         *ngIf="this.add.controls?.matricule.errors?.pattern"
                       >
                         <ion-text color="danger"
-                          >Le numéro doit commencer par << 6 >>.</ion-text
+                          >Le numéro doit commencer par << 6>>.</ion-text
                         >
                       </div>
                     </span>
@@ -597,7 +656,7 @@
                     <ion-row>
                       <ion-col size="6">
                         <ion-button expand="block" type="reset" color="danger">
-                          Cancel
+                          Annuler
                           <ion-icon name="close-circle-outline"></ion-icon>
                         </ion-button>
                       </ion-col>
@@ -607,7 +666,7 @@
                           type="submit"
                           [disabled]="!image"
                         >
-                          Update <ion-icon name="save-outline"></ion-icon>
+                          Modifier <ion-icon name="save-outline"></ion-icon>
                         </ion-button>
                       </ion-col>
                     </ion-row>
@@ -627,14 +686,17 @@
     <div *ngIf="selected === 'accessibility'">
       <div class="container">
         <div
-          *ngIf="selected1 === 'newAccesibility' || selected1 === 'checkAccesibility'"
+          *ngIf="selected1 === 'newAccesibility' || selected1 === 'checkAccesibility' || selected1 === 'getAccesibility'"
         >
           <ion-segment [(ngModel)]="selected1" mode="ios" class="ion-no-border">
             <ion-segment-button value="newAccesibility">
-              New Accessibility
+              Nouvelle
+            </ion-segment-button>
+            <ion-segment-button value="getAccesibility">
+              Vérifier
             </ion-segment-button>
             <ion-segment-button value="checkAccesibility">
-              Check Student accessibility
+              Valider Accès Bus
             </ion-segment-button>
           </ion-segment>
         </div>
@@ -660,7 +722,7 @@
 
               <div class="form-group">
                 <ion-input
-                  label="Full Name"
+                  label="Noms & Prénoms"
                   type="text"
                   label-placement="floating"
                   fill="outline"
@@ -676,28 +738,51 @@
 
               <div class="form-group">
                 <ion-input
-                  label="Maturity Period"
-                  type="date"
+                  label="Date Expiration"
                   label-placement="floating"
                   fill="outline"
-                  placeholder="Entrez le matricule...."
+                  placeholder="Selectionnez l'étudiant...."
                   [clearInput]="true"
                   autocomplete="off"
                   autocorrect="on"
                   readonly=""
+                  [(ngModel)]="student.endPeriod"
+                  [ngModelOptions]="{ standalone: true }"
+                ></ion-input>
+              </div>
+
+              <div class="form-group">
+                <ion-input
+                  label="Nouvelle Prolongation"
+                  type="text"
+                  label-placement="floating"
+                  fill="outline"
+                  placeholder="YYYY/MM/DD"
+                  [clearInput]="true"
+                  autocomplete="off"
+                  autocorrect="on"
+                  [textMask]="{ mask: ['2', '2', '2', '2', '/', '2', '2', '/', '1', '1'] }"
                 ></ion-input>
               </div>
 
               <ion-grid fixed>
                 <ion-row>
                   <ion-col size="6">
-                    <ion-button expand="block" type="reset" color="danger">
-                      Cancel <ion-icon name="close-circle-outline"></ion-icon>
+                    <ion-button
+                      expand="block"
+                      (click)="annuler()"
+                      color="danger"
+                    >
+                      Annuler <ion-icon name="close-circle-outline"></ion-icon>
                     </ion-button>
                   </ion-col>
                   <ion-col size="6">
-                    <ion-button expand="block" type="submit" [disabled]="!isReady">
-                      Save <ion-icon name="save-outline"></ion-icon>
+                    <ion-button
+                      expand="block"
+                      type="submit"
+                      [disabled]="!isReady"
+                    >
+                      Enregistrer <ion-icon name="save-outline"></ion-icon>
                     </ion-button>
                   </ion-col>
                 </ion-row>
@@ -705,11 +790,103 @@
             </form>
           </div>
 
-          <ion-card color="danger" style="padding: 12%; text-align: center !important; font-size: 1rem;" *ngIf="messageBusAccessStatus == 'no'">
+          <ion-card
+            color="danger"
+            style="padding: 12%; text-align: center !important; font-size: 1rem"
+            *ngIf="messageBusAccessStatus === 'no'"
+          >
             {{messageBusAccess}}
           </ion-card>
 
-          <ion-card color="success" style="padding: 12%; text-align: center !important; font-size: 1rem;" *ngIf="messageBusAccessStatus == 'yes'">
+          <ion-card
+            color="success"
+            style="padding: 12%; text-align: center !important; font-size: 1rem"
+            *ngIf="messageBusAccessStatus === 'yes'"
+          >
+            {{messageBusAccess}}
+          </ion-card>
+        </div>
+
+        <div *ngIf="selected1 === 'getAccesibility'">
+          <div class="form-login">
+            <form novalidate>
+              <div class="form-group">
+                <ion-input
+                  label="Matricule"
+                  type="text"
+                  label-placement="floating"
+                  fill="outline"
+                  placeholder="Entrez le matricule...."
+                  [clearInput]="true"
+                  autocomplete="off"
+                  autocorrect="on"
+                  readonly=""
+                  [(ngModel)]="student.matricule"
+                  [ngModelOptions]="{ standalone: true }"
+                ></ion-input>
+              </div>
+
+              <div class="form-group">
+                <ion-input
+                  label="Noms & Prénoms"
+                  type="text"
+                  label-placement="floating"
+                  fill="outline"
+                  placeholder="Entrez le matricule...."
+                  [clearInput]="true"
+                  autocomplete="off"
+                  autocorrect="on"
+                  readonly=""
+                  [(ngModel)]="student.fullname"
+                  [ngModelOptions]="{ standalone: true }"
+                ></ion-input>
+              </div>
+
+              <div class="form-group">
+                <ion-input
+                  label="Date Expiration"
+                  type="text"
+                  label-placement="floating"
+                  fill="outline"
+                  placeholder="Selectionnez l'étudiant...."
+                  [clearInput]="true"
+                  autocomplete="off"
+                  autocorrect="on"
+                  readonly=""
+                  [(ngModel)]="student.endPeriod"
+                  [ngModelOptions]="{ standalone: true }"
+                ></ion-input>
+              </div>
+
+              <ion-grid fixed>
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-button
+                      expand="block"
+                      (click)="annuler()"
+                      color="danger"
+                    >
+                      Annuler <ion-icon name="close-circle-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </form>
+          </div>
+
+          <ion-card
+            color="danger"
+            style="padding: 12%; text-align: center !important; font-size: 1rem"
+            *ngIf="messageBusAccessStatus === 'no'"
+          >
+            {{messageBusAccess}}
+          </ion-card>
+
+          <ion-card
+            color="success"
+            style="padding: 12%; text-align: center !important; font-size: 1rem"
+            *ngIf="messageBusAccessStatus === 'yes'"
+          >
             {{messageBusAccess}}
           </ion-card>
         </div>
@@ -735,7 +912,7 @@
 
               <div class="form-group">
                 <ion-input
-                  label="Full Name"
+                  label="Noms & Prénoms"
                   type="text"
                   label-placement="floating"
                   fill="outline"
@@ -749,27 +926,26 @@
                 ></ion-input>
               </div>
 
-              <div class="form-group">
-                <ion-input
-                  label="Maturity Period"
-                  type="text"
-                  label-placement="floating"
-                  fill="outline"
-                  placeholder="Entrez le matricule...."
-                  [clearInput]="true"
-                  autocomplete="off"
-                  autocorrect="on"
-                  readonly=""
-                  [(ngModel)]="student.endPeriod"
-                  [ngModelOptions]="{ standalone: true }"
-                ></ion-input>
-              </div>
-
               <ion-grid fixed>
                 <ion-row>
-                  <ion-col size="12">
-                    <ion-button expand="block" type="submit" [disabled]="!isValidity">
-                      Admit It <ion-icon name="checkmark-done-outline"></ion-icon>
+                  <ion-col size="6">
+                    <ion-button
+                      expand="block"
+                      (click)="annuler()"
+                      color="danger"
+                      >
+                      Annuler <ion-icon name="close-circle-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+
+                  <ion-col size="6">
+                    <ion-button
+                      expand="block"
+                      type="submit"
+                      [disabled]="!isValidity"
+                    >
+                      Admettre
+                      <ion-icon name="checkmark-done-outline"></ion-icon>
                     </ion-button>
                   </ion-col>
                 </ion-row>
@@ -777,19 +953,23 @@
             </form>
           </div>
 
-          <ion-card color="danger" style="padding: 12%; text-align: center !important; font-size: 1rem;" *ngIf="messageBusAccessStatus == 'no'">
+          <ion-card
+            color="danger"
+            style="padding: 12%; text-align: center !important; font-size: 1rem"
+            *ngIf="messageBusAccessStatus === 'no'"
+          >
             {{messageBusAccess}}
           </ion-card>
 
-          <ion-card color="success" style="padding: 12%; text-align: center !important; font-size: 1rem;" *ngIf="messageBusAccessStatus == 'yes'">
+          <ion-card
+            color="success"
+            style="padding: 12%; text-align: center !important; font-size: 1rem"
+            *ngIf="messageBusAccessStatus === 'yes'"
+          >
             {{messageBusAccess}}
           </ion-card>
         </div>
       </div>
-
-
-
-
     </div>
 
     <div *ngIf="selected === 'scanner'"></div>

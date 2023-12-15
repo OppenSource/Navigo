@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { StudentPageRoutingModule } from './student-routing.module';
 import { StudentPage } from './student.page';
 import { Storage } from '@ionic/storage-angular';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { Storage } from '@ionic/storage-angular';
     IonicModule,
     StudentPageRoutingModule,
     ReactiveFormsModule,
+    QRCodeModule,
   ],
   declarations: [StudentPage],
   providers: [Storage],
